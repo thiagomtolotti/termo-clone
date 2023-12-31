@@ -21,3 +21,8 @@
   transform: scale(1.05);
   border-bottom: 9px solid var(--main30);
 }
+
+.guess.blocked {
+  border: none;
+  background-color: var(--main30);
+}

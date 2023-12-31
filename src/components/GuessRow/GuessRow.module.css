@@ -1,13 +1,4 @@
-.guessRow {
+.row {
   display: flex;
   gap: 6px;
-}
-
-.guessRow.inactive > * {
-  border: none;
-  background-color: var(--main30);
-}
-
-.guessRow.active {
-  cursor: pointer;
 }
