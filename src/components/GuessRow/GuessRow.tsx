@@ -10,14 +10,18 @@ interface GuessRowProps {
 }
 
 export const GuessRow = ({ active = false }: GuessRowProps) => {
+  const [guessValue, setGuessValue] = useState(["", "", "", "", ""]);
   const [activeGuessIndex, setActiveGuessIndex] = useState(0);
 
-  function handleGuessInput(
-    ev: React.KeyboardEvent,
-    setValue: React.Dispatch<React.SetStateAction<string>>
-  ) {
+  function handleGuessInput(ev: React.KeyboardEvent) {
     if (isLetter(ev.key)) {
-      setValue(ev.key);
+      setGuessValue((guessValue) => {
+        const newGuessValue = [...guessValue];
+
+        newGuessValue[activeGuessIndex] = ev.key;
+
+        return newGuessValue;
+      });
 
       setActiveGuessIndex((activeGuessIndex) =>
         Math.min(activeGuessIndex + 1, 4)
@@ -25,12 +29,24 @@ export const GuessRow = ({ active = false }: GuessRowProps) => {
     }
 
     if (ev.key === "Backspace") {
-      setValue("");
+      setGuessValue((guessValue) => {
+        const newGuessValue = [...guessValue];
+
+        newGuessValue[activeGuessIndex] = "";
+
+        return newGuessValue;
+      });
 
       setActiveGuessIndex((activeGuessIndex) =>
         Math.max(activeGuessIndex - 1, 0)
       );
     }
+  }
+
+  function sendGuess(ev: React.KeyboardEvent) {
+    if (ev.key !== "Enter") return;
+
+    console.log(`Guess ${guessValue}`);
   }
 
   return (
@@ -39,12 +55,14 @@ export const GuessRow = ({ active = false }: GuessRowProps) => {
         className={`${styles.guessRow} ${
           !active ? styles.inactive : styles.active
         }`}
+        onKeyDown={sendGuess}
       >
-        {[...Array(5)].map((_, index) => (
+        {guessValue.map((_, index) => (
           <Guess
             key={index}
             active={index === activeGuessIndex}
             handleInput={handleGuessInput}
+            value={guessValue[index]}
           />
         ))}
       </div>

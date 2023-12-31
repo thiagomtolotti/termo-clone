@@ -2,16 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./Guess.module.css";
 
 interface GuessProps {
+  value: string;
   active?: boolean;
-  handleInput: (
-    ev: React.KeyboardEvent,
-    setValue: React.Dispatch<React.SetStateAction<string>>
-  ) => void;
+  handleInput: (ev: React.KeyboardEvent) => void;
 }
 
-export const Guess = ({ active = false, handleInput }: GuessProps) => {
+export const Guess = ({ active = false, handleInput, value }: GuessProps) => {
   const guessRef = useRef<HTMLDivElement>(null);
-  const [value, setValue] = useState("");
+  // const [value, setValue] = useState("");
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
@@ -30,7 +28,7 @@ export const Guess = ({ active = false, handleInput }: GuessProps) => {
       onFocus={() => setIsActive(true)}
       onBlur={() => setIsActive(false)}
       className={`${styles.guess} ${isActive && styles.active}`}
-      onKeyDown={(ev) => handleInput(ev, setValue)}
+      onKeyDown={handleInput}
       tabIndex={0}
     >
       {value}
