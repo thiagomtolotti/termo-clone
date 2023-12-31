@@ -18,10 +18,19 @@ export const GuessRow = ({ active = false }: GuessRowProps) => {
   ) {
     if (isLetter(ev.key)) {
       setValue(ev.key);
-      setActiveGuessIndex((activeGuessIndex) => activeGuessIndex + 1);
+
+      setActiveGuessIndex((activeGuessIndex) =>
+        Math.min(activeGuessIndex + 1, 4)
+      );
     }
 
-    if (ev.key === "Backspace") setValue("");
+    if (ev.key === "Backspace") {
+      setValue("");
+
+      setActiveGuessIndex((activeGuessIndex) =>
+        Math.max(activeGuessIndex - 1, 0)
+      );
+    }
   }
 
   return (
