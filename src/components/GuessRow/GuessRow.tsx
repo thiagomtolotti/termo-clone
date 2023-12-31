@@ -9,8 +9,8 @@ interface GuessRowProps {
 export const GuessRow = ({ value }: GuessRowProps) => {
   return (
     <div className={styles.row}>
-      {value.map((value) => (
-        <Guess handleInput={() => {}} value={value} blocked />
+      {value.map((value, index) => (
+        <Guess handleInput={() => {}} value={value} blocked key={index} />
       ))}
     </div>
   );

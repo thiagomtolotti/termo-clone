@@ -1,8 +1,5 @@
 .guessRow {
   display: flex;
   gap: 6px;
-}
-
-.guessRow.active {
   cursor: pointer;
 }

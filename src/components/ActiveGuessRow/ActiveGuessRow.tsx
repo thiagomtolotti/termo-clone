@@ -5,14 +5,10 @@ import { useState } from "react";
 import isLetter from "../../utils/isLetter";
 
 interface ActiveGuessRowProps {
-  active?: boolean;
   sendGuess: (ev: React.KeyboardEvent, newGuess: string[]) => void;
 }
 
-export const ActiveGuessRow = ({
-  active = false,
-  sendGuess,
-}: ActiveGuessRowProps) => {
+export const ActiveGuessRow = ({ sendGuess }: ActiveGuessRowProps) => {
   const [guessValue, setGuessValue] = useState(["", "", "", "", ""]);
   const [activeGuessIndex, setActiveGuessIndex] = useState(0);
 
@@ -46,9 +42,7 @@ export const ActiveGuessRow = ({
 
   return (
     <div
-      className={`${styles.guessRow} ${
-        !active ? styles.inactive : styles.active
-      }`}
+      className={`${styles.guessRow}`}
       onKeyDown={(ev) => sendGuess(ev, guessValue)}
     >
       {guessValue.map((_, index) => (
