@@ -1,23 +1,36 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Guess.module.css";
-import isLetter from "../../utils/isLetter";
 
-export const Guess = () => {
+interface GuessProps {
+  active?: boolean;
+  handleInput: (
+    ev: React.KeyboardEvent,
+    setValue: React.Dispatch<React.SetStateAction<string>>
+  ) => void;
+}
+
+export const Guess = ({ active = false, handleInput }: GuessProps) => {
+  const guessRef = useRef<HTMLDivElement>(null);
   const [value, setValue] = useState("");
   const [isActive, setIsActive] = useState(false);
 
-  function handleKeyDown(ev: React.KeyboardEvent) {
-    if (isLetter(ev.key)) setValue(ev.key);
+  useEffect(() => {
+    setIsActive(active);
+  }, [active]);
 
-    if (ev.key === "Backspace") setValue("");
-  }
+  useEffect(() => {
+    if (!isActive) return;
+
+    guessRef.current?.focus();
+  }, [isActive]);
 
   return (
     <div
+      ref={guessRef}
       onFocus={() => setIsActive(true)}
       onBlur={() => setIsActive(false)}
       className={`${styles.guess} ${isActive && styles.active}`}
-      onKeyDown={handleKeyDown}
+      onKeyDown={(ev) => handleInput(ev, setValue)}
       tabIndex={0}
     >
       {value}
