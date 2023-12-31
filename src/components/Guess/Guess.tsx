@@ -6,6 +6,7 @@ interface GuessProps {
   active?: boolean;
   blocked?: boolean;
   handleInput: (ev: React.KeyboardEvent) => void;
+  position?: "misplaced" | "correct" | "";
 }
 
 export const Guess = ({
@@ -13,6 +14,7 @@ export const Guess = ({
   handleInput,
   value,
   blocked = false,
+  position,
 }: GuessProps) => {
   const guessRef = useRef<HTMLDivElement>(null);
   const [isActive, setIsActive] = useState(false);
@@ -35,7 +37,9 @@ export const Guess = ({
       className={`
         ${styles.guess}
         ${isActive && !blocked && styles.active}
-        ${blocked && styles.blocked}`}
+        ${blocked && styles.blocked}
+        ${position === "misplaced" && styles.misplaced}
+        ${position === "correct" && styles.correct}`}
       onKeyDown={handleInput}
       tabIndex={0}
     >

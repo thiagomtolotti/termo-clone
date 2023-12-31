@@ -26,3 +26,11 @@
   border: none;
   background-color: var(--main30);
 }
+
+.guess.misplaced {
+  background-color: var(--yellow60);
+}
+
+.guess.correct {
+  background-color: var(--green40);
+}

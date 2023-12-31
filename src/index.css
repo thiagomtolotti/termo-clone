@@ -1,8 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Mitr:wght@600&display=swap");
 
 :root {
+  --main20: #312a2c;
   --main30: #4c4347;
   --main40: #6e5c62;
+
+  --yellow60: #d3ad69;
+  --green40: #3aa394;
 }
 
 :root {

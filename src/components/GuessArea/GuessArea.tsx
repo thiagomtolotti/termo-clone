@@ -8,12 +8,16 @@ const NUMBER_OF_GUESSES = 6;
 const initialState: string[][] = [];
 
 for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
-  const guess: string[] = new Array(5).fill("");
+  const guess: string[] = new Array(5).fill(" ");
 
   initialState.push(guess);
 }
 
-export const GuessArea = () => {
+interface GuessAreaProps {
+  word: string;
+}
+
+export const GuessArea = ({ word }: GuessAreaProps) => {
   const [guesses, setGuesses] = useState(initialState);
   const [activeGuessIndex, setActiveGuessIndex] = useState(0);
 
@@ -39,7 +43,7 @@ export const GuessArea = () => {
     <div className={styles.guesses}>
       {guesses.map((_, index) => {
         if (activeGuessIndex !== index) {
-          return <GuessRow value={guesses[index]} key={index} />;
+          return <GuessRow value={guesses[index]} key={index} word={word} />;
         }
 
         return <ActiveGuessRow sendGuess={sendGuess} key={index} />;

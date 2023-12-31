@@ -1,11 +1,13 @@
-import Guesses from "./components/GuessArea";
+import GuessArea from "./components/GuessArea";
 import Header from "./components/Header";
+
+const WORD = "TERMO";
 
 function App() {
   return (
     <>
       <Header />
-      <Guesses />
+      <GuessArea word={WORD} />
     </>
   );
 }
