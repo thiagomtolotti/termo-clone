@@ -13,7 +13,11 @@
   text-transform: uppercase;
   font-size: 2.4em;
 }
+.guess:focus {
+  outline: none;
+}
 
 .guess.active {
+  transform: scale(1.05);
   border-bottom: 9px solid var(--main30);
 }
