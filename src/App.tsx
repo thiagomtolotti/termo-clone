@@ -1,28 +1,13 @@
-import { useEffect, useState } from "react";
 import GuessArea from "./components/GuessArea";
 import Header from "./components/Header";
 import Keyboard from "./components/Keyboard";
-import getValidWords from "./utils/getValidWords";
+import useGenerateWord from "./hooks/useGenerateWord";
 
 function App() {
-  const [word, setWord] = useState<string | null>(null);
-
-  useEffect(() => {
-    getValidWords().then((words) => {
-      const getRandomWord =
-        words[Math.floor(Math.random() * words.length)].toUpperCase();
-
-      setWord(getRandomWord);
-    });
-  }, []);
-
-  useEffect(() => {
-    //@ts-expect-error Objeto no window sempre dá erro de compilação
-    window.word = word;
-  }, [word]);
+  const word = useGenerateWord();
 
   return (
-    word !== null && (
+    word && (
       <>
         <Header />
         <GuessArea word={word} />
