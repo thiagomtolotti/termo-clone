@@ -9,15 +9,24 @@ interface GuessRowProps {
 
 export const GuessRow = ({ value, word }: GuessRowProps) => {
   function checkPosition(index: number) {
-    const indexValue = value[index].toUpperCase();
-    if (word[index] === indexValue) return "correct";
+    const letter = value[index].toUpperCase();
 
-    if (word.indexOf(indexValue) !== -1) {
-      // Checa se na posição da letra está correto
-      if (word.indexOf(indexValue) !== index) return "misplaced";
+    if (letter === word[index]) return "correct";
+
+    if (word.indexOf(letter) !== -1) {
+      const indexesInResult = word
+        .split("")
+        .reduce((acc, letterInResult, index) => {
+          if (letterInResult === letter) acc.push(index);
+
+          return acc;
+        }, [] as number[]);
+
+      for (let i = 0; i < indexesInResult.length; i++) {
+        if (value[indexesInResult[i]].toUpperCase() !== letter)
+          return "misplaced";
+      }
     }
-
-    return "";
   }
 
   return (

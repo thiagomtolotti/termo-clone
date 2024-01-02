@@ -16,6 +16,10 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    console.log(word);
+  }, [word]);
+
   return (
     word !== null && (
       <>
