@@ -12,7 +12,7 @@
 
   font-size: 1.2em;
 
-  animation: center-in 100ms ease-in-out;
+  animation: center-in 300ms ease-in-out;
 }
 
 @keyframes center-in {

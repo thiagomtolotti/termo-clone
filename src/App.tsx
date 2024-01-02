@@ -16,6 +16,11 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    //@ts-expect-error Objeto no window sempre dá erro de compilação
+    window.word = word;
+  }, [word]);
+
   return (
     word !== null && (
       <>

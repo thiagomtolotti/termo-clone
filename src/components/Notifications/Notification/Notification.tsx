@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styles from "../Notifications.module.css";
 
 interface NotificationProps {
@@ -5,5 +6,15 @@ interface NotificationProps {
 }
 
 export const Notification = ({ children }: NotificationProps) => {
-  return <div className={styles.notification}>{children}</div>;
+  const [render, setRenderAgain] = useState(false);
+
+  useEffect(() => {
+    setRenderAgain(false);
+
+    if (!children) return;
+
+    setTimeout(() => setRenderAgain(true), 0);
+  }, [children]);
+
+  return render && <div className={styles.notification}>{children}</div>;
 };

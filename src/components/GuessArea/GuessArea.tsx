@@ -1,9 +1,10 @@
 import styles from "./GuessArea.module.css";
 
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import ActiveGuessRow from "../ActiveGuessRow";
 import GuessRow from "../GuessRow";
 import getValidWords from "../../utils/getValidWords";
+import { DeviceContext } from "../../contexts/NotificationContext";
 
 const NUMBER_OF_GUESSES = 6;
 const initialState: string[][] = [];
@@ -19,6 +20,8 @@ interface GuessAreaProps {
 }
 
 export const GuessArea = ({ word }: GuessAreaProps) => {
+  const { renderNotification } = useContext(DeviceContext);
+
   const [guesses, setGuesses] = useState(initialState);
   const [activeGuessIndex, setActiveGuessIndex] = useState(0);
   const validWords = useRef<string[]>();
@@ -30,12 +33,15 @@ export const GuessArea = ({ word }: GuessAreaProps) => {
   }, []);
 
   function sendGuess(ev: React.KeyboardEvent, newGuess: string[]) {
-    if (ev.key !== "Enter" || newGuess.indexOf("") !== -1) return;
+    if (ev.key !== "Enter") return;
+
+    if (newGuess.indexOf("") !== -1) {
+      renderNotification("Só palavras com 5 letras");
+      return;
+    }
 
     if (validWords.current?.indexOf(newGuess.join("")) === -1) {
-      console.log("Palavra inválida");
-      console.log(word);
-      console.log(validWords.current);
+      renderNotification("Essa palavra não é aceita");
       return;
     }
 
@@ -47,8 +53,23 @@ export const GuessArea = ({ word }: GuessAreaProps) => {
       return newGuesses;
     });
 
+    if (newGuess.join("").toUpperCase() === word) {
+      renderNotification("Parabéns");
+      setActiveGuessIndex(-1);
+
+      return;
+    }
+
     setActiveGuessIndex((index) => index + 1);
+
+    renderNotification("");
   }
+
+  useEffect(() => {
+    if (activeGuessIndex === guesses.length) {
+      renderNotification("Mais sorte da próxima vez");
+    }
+  }, [activeGuessIndex, guesses, renderNotification]);
 
   return (
     <div className={styles.guesses}>
