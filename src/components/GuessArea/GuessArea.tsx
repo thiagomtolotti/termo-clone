@@ -1,8 +1,9 @@
 import styles from "./GuessArea.module.css";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ActiveGuessRow from "../ActiveGuessRow";
 import GuessRow from "../GuessRow";
+import getValidWords from "../../utils/getValidWords";
 
 const NUMBER_OF_GUESSES = 6;
 const initialState: string[][] = [];
@@ -20,9 +21,21 @@ interface GuessAreaProps {
 export const GuessArea = ({ word }: GuessAreaProps) => {
   const [guesses, setGuesses] = useState(initialState);
   const [activeGuessIndex, setActiveGuessIndex] = useState(0);
+  const validWords = useRef<string[]>();
+
+  useEffect(() => {
+    getValidWords().then((words) => {
+      validWords.current = words;
+    });
+  }, []);
 
   function sendGuess(ev: React.KeyboardEvent, newGuess: string[]) {
     if (ev.key !== "Enter" || newGuess.indexOf("") !== -1) return;
+
+    if (validWords.current?.indexOf(newGuess.join("")) === -1) {
+      console.log("Palavra inválida");
+      return;
+    }
 
     setGuesses((guesses) => {
       const newGuesses = [...guesses];
@@ -34,10 +47,6 @@ export const GuessArea = ({ word }: GuessAreaProps) => {
 
     setActiveGuessIndex((index) => index + 1);
   }
-
-  useEffect(() => {
-    console.log(guesses);
-  }, [guesses]);
 
   return (
     <div className={styles.guesses}>
