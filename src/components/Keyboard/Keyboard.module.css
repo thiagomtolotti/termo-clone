@@ -1,0 +1,20 @@
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(32, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 6px;
+
+  height: var(--keyboard-height);
+}
+
+.keyboard > *:nth-child(11) {
+  grid-column: 2 / span 3;
+}
+
+.keyboard > *:nth-child(20) {
+  grid-column: 30 / span 3;
+}
+
+.keyboard > *:nth-child(21) {
+  grid-column: 3 / span 3;
+}

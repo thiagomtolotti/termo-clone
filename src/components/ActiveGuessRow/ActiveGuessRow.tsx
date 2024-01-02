@@ -22,7 +22,7 @@ export const ActiveGuessRow = ({ sendGuess }: ActiveGuessRowProps) => {
     });
   }
 
-  function handleGuessInput(ev: React.KeyboardEvent) {
+  function handleGuessInput(ev: KeyboardEvent) {
     if (isLetter(ev.key)) {
       updateGuessValue(ev.key);
 
@@ -40,6 +40,10 @@ export const ActiveGuessRow = ({ sendGuess }: ActiveGuessRowProps) => {
     }
   }
 
+  function handleGuessClick(index: number) {
+    setActiveGuessIndex(index);
+  }
+
   return (
     <div
       className={`${styles.guessRow}`}
@@ -51,6 +55,8 @@ export const ActiveGuessRow = ({ sendGuess }: ActiveGuessRowProps) => {
           active={index === activeGuessIndex}
           handleInput={handleGuessInput}
           value={guessValue[index]}
+          index={index}
+          handleClick={handleGuessClick}
         />
       ))}
     </div>

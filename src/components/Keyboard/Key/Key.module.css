@@ -1,0 +1,17 @@
+.key {
+  background-color: var(--main30);
+  text-transform: uppercase;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  grid-column: span 3;
+
+  border-radius: 4px;
+
+  font-size: 1.4em;
+
+  user-select: none;
+  cursor: pointer;
+}

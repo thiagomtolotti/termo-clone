@@ -5,8 +5,10 @@ interface GuessProps {
   value: string;
   active?: boolean;
   blocked?: boolean;
-  handleInput: (ev: React.KeyboardEvent) => void;
+  handleInput: (ev: KeyboardEvent) => void;
   position?: "misplaced" | "correct" | "";
+  index: number;
+  handleClick: (index: number) => void;
 }
 
 export const Guess = ({
@@ -15,6 +17,8 @@ export const Guess = ({
   value,
   blocked = false,
   position,
+  index,
+  handleClick,
 }: GuessProps) => {
   const guessRef = useRef<HTMLDivElement>(null);
   const [isActive, setIsActive] = useState(false);
@@ -27,21 +31,25 @@ export const Guess = ({
     if (!isActive) return;
 
     guessRef.current?.focus();
-  }, [isActive]);
+
+    document.addEventListener("keydown", handleInput);
+
+    return () => {
+      document.removeEventListener("keydown", handleInput);
+    };
+  }, [isActive, handleInput]);
 
   return (
     <div
       ref={guessRef}
-      onFocus={() => setIsActive(true)}
-      onBlur={() => setIsActive(false)}
       className={`
         ${styles.guess}
         ${isActive && !blocked && styles.active}
         ${blocked && styles.blocked}
         ${position === "misplaced" && styles.misplaced}
         ${position === "correct" && styles.correct}`}
-      onKeyDown={handleInput}
       tabIndex={0}
+      onClick={() => handleClick(index)}
     >
       {value}
     </div>

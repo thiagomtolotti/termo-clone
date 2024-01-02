@@ -7,6 +7,8 @@
 
   --yellow60: #d3ad69;
   --green40: #3aa394;
+
+  --keyboard-height: min(100em/2.15, 25vh);
 }
 
 :root {
@@ -25,14 +27,22 @@
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 
   background-color: var(--main40);
+
+  display: flex;
+  justify-content: center;
+}
+
+#root {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 20px;
 }
 
 h1 {

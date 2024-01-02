@@ -28,6 +28,8 @@ export const GuessRow = ({ value, word }: GuessRowProps) => {
           value={value}
           blocked
           position={checkPosition(index)}
+          handleClick={() => {}}
+          index={0}
         />
       ))}
     </div>
