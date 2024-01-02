@@ -19,6 +19,7 @@ export const GuessRow = ({ value, word }: GuessRowProps) => {
 
     return "";
   }
+
   return (
     <div className={styles.row}>
       {value.map((value, index) => (

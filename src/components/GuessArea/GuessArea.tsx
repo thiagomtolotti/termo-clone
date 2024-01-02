@@ -34,6 +34,8 @@ export const GuessArea = ({ word }: GuessAreaProps) => {
 
     if (validWords.current?.indexOf(newGuess.join("")) === -1) {
       console.log("Palavra inválida");
+      console.log(word);
+      console.log(validWords.current);
       return;
     }
 
