@@ -1,7 +1,7 @@
 import styles from "./ActiveGuessRow.module.css";
 
 import Guess from "../Guess";
-import { useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import isLetter from "../../utils/isLetter";
 
 interface ActiveGuessRowProps {
@@ -9,7 +9,7 @@ interface ActiveGuessRowProps {
 }
 
 export const ActiveGuessRow = ({ sendGuess }: ActiveGuessRowProps) => {
-  const [guessValue, setGuessValue] = useState(["", "", "", "", ""]);
+  const [guessValue, setGuessValue] = useState(Array(5).fill(""));
   const [activeGuessIndex, setActiveGuessIndex] = useState(0);
 
   function updateGuessValue(value: string) {
@@ -26,23 +26,49 @@ export const ActiveGuessRow = ({ sendGuess }: ActiveGuessRowProps) => {
     if (isLetter(ev.key)) {
       updateGuessValue(ev.key);
 
-      setActiveGuessIndex((activeGuessIndex) =>
-        Math.min(activeGuessIndex + 1, 4)
-      );
+      setActiveGuessIndex((activeIndex) => activeIndex + 1);
     }
 
     if (ev.key === "Backspace") {
       updateGuessValue("");
 
-      setActiveGuessIndex((activeGuessIndex) =>
-        Math.max(activeGuessIndex - 1, 0)
-      );
+      setActiveGuessIndex((activeIndex) => activeIndex - 1);
     }
   }
 
   function handleGuessClick(index: number) {
     setActiveGuessIndex(index);
   }
+
+  useEffect(() => {
+    const handleArrowClick = (ev: KeyboardEvent) => {
+      if (ev.key === "ArrowRight") {
+        setActiveGuessIndex((activeIndex) => activeIndex + 1);
+      }
+
+      if (ev.key === "ArrowLeft") {
+        setActiveGuessIndex((activeIndex) => activeIndex - 1);
+      }
+    };
+
+    document.addEventListener("keydown", handleArrowClick);
+
+    return () => {
+      document.removeEventListener("keydown", handleArrowClick);
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    if (activeGuessIndex > 4) {
+      setActiveGuessIndex(4);
+      return;
+    }
+
+    if (activeGuessIndex < 0) {
+      setActiveGuessIndex(0);
+      return;
+    }
+  }, [activeGuessIndex]);
 
   return (
     <div
