@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import getValidWords from "../utils/getValidWords";
 
-interface randomWordDataInterface {
-  word: string;
-  date: string;
-}
-
 const useGenerateWord = () => {
   const [word, setWord] = useState<string>();
 
@@ -15,34 +10,24 @@ const useGenerateWord = () => {
     const randomWord =
       allWords[Math.floor(Math.random() * allWords.length)].toUpperCase();
 
-    const localStorageObj: randomWordDataInterface = {
-      word: randomWord,
-      date: new Date().toDateString(),
-    };
-
-    localStorage.setItem("randomWordData", JSON.stringify(localStorageObj));
+    localStorage.setItem("randomWord", randomWord);
+    localStorage.setItem("lastLoggedDate", new Date().toDateString());
 
     return randomWord;
   }
 
   useEffect(() => {
-    const storageRandomWord = localStorage.getItem("randomWordData");
+    const storageRandomWord = localStorage.getItem("randomWord");
+    const storageDate = localStorage.getItem("lastLoggedDate");
 
-    if (!storageRandomWord) {
+    const isValidDate = storageDate === new Date().toDateString();
+
+    if (!storageRandomWord || !isValidDate) {
       generateNewWord().then((newWord) => setWord(newWord));
       return;
     }
 
-    const randomWordData: randomWordDataInterface =
-      JSON.parse(storageRandomWord);
-    const isValidDate = randomWordData.date === new Date().toDateString();
-
-    if (!isValidDate) {
-      generateNewWord().then((newWord) => setWord(newWord));
-      return;
-    }
-
-    setWord(randomWordData.word);
+    setWord(storageRandomWord);
   }, []);
 
   useEffect(() => {
