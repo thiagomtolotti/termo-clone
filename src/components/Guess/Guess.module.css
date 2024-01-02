@@ -1,4 +1,6 @@
 .guess {
+  position: relative;
+
   width: 64px;
   aspect-ratio: 1;
 
@@ -13,6 +15,11 @@
   text-transform: uppercase;
   font-size: 2.4em;
 }
+
+.guess span {
+  position: absolute;
+}
+
 .guess:focus {
   outline: none;
 }

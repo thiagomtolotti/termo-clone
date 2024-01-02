@@ -51,7 +51,7 @@ export const Guess = ({
       tabIndex={0}
       onClick={() => handleClick(index)}
     >
-      {value}
+      <span>{value}</span>
     </div>
   );
 };
