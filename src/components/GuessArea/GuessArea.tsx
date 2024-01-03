@@ -1,10 +1,10 @@
 import styles from "./GuessArea.module.css";
 
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect } from "react";
 import ActiveGuessRow from "../ActiveGuessRow";
 import GuessRow from "../GuessRow";
-import getValidWords from "../../utils/getValidWords";
 import { DeviceContext } from "../../contexts/NotificationContext";
+import useGuesses from "../../hooks/useGuesses";
 
 const NUMBER_OF_GUESSES = 6;
 const initialState: string[][] = [];
@@ -21,39 +21,21 @@ interface GuessAreaProps {
 
 export const GuessArea = ({ word }: GuessAreaProps) => {
   const { renderNotification } = useContext(DeviceContext);
+  const { guesses, sendGuess, activeGuessIndex, setActiveGuessIndex } =
+    useGuesses();
 
-  const [guesses, setGuesses] = useState(initialState);
-  const [activeGuessIndex, setActiveGuessIndex] = useState(0);
-  const validWords = useRef<string[]>();
+  // const [activeGuessIndex, setActiveGuessIndex] = useState(0);
 
-  useEffect(() => {
-    getValidWords().then((words) => {
-      validWords.current = words;
-    });
-  }, []);
-
-  function sendGuess(ev: React.KeyboardEvent, newGuess: string[]) {
+  function handleSendGuess(ev: React.KeyboardEvent, newGuess: string[]) {
     if (ev.key !== "Enter") return;
 
-    if (newGuess.indexOf("") !== -1) {
-      renderNotification("Só palavras com 5 letras");
-      return;
-    }
+    sendGuess(newGuess);
+  }
 
-    if (validWords.current?.indexOf(newGuess.join("")) === -1) {
-      renderNotification("Essa palavra não é aceita");
-      return;
-    }
+  useEffect(() => {
+    if (guesses[activeGuessIndex].indexOf("") !== -1) return;
 
-    setGuesses((guesses) => {
-      const newGuesses = [...guesses];
-
-      newGuesses[activeGuessIndex] = newGuess;
-
-      return newGuesses;
-    });
-
-    if (newGuess.join("").toUpperCase() === word) {
+    if (guesses[activeGuessIndex].join("").toUpperCase() === word) {
       renderNotification("Parabéns");
       setActiveGuessIndex(-1);
 
@@ -61,9 +43,8 @@ export const GuessArea = ({ word }: GuessAreaProps) => {
     }
 
     setActiveGuessIndex((index) => index + 1);
-
     renderNotification("");
-  }
+  }, [guesses]);
 
   useEffect(() => {
     if (activeGuessIndex === guesses.length) {
@@ -78,7 +59,7 @@ export const GuessArea = ({ word }: GuessAreaProps) => {
           return <GuessRow value={guesses[index]} key={index} word={word} />;
         }
 
-        return <ActiveGuessRow sendGuess={sendGuess} key={index} />;
+        return <ActiveGuessRow sendGuess={handleSendGuess} key={index} />;
       })}
     </div>
   );
