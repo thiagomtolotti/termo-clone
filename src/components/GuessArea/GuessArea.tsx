@@ -21,36 +21,19 @@ interface GuessAreaProps {
 
 export const GuessArea = ({ word }: GuessAreaProps) => {
   const { renderNotification } = useContext(DeviceContext);
-  const { guesses, sendGuess, activeGuessIndex, setActiveGuessIndex } =
-    useGuesses();
-
-  // const [activeGuessIndex, setActiveGuessIndex] = useState(0);
+  const { guesses, sendGuess, activeGuessIndex } = useGuesses();
 
   function handleSendGuess(ev: React.KeyboardEvent, newGuess: string[]) {
     if (ev.key !== "Enter") return;
 
-    sendGuess(newGuess);
+    sendGuess(newGuess, word);
   }
-
-  useEffect(() => {
-    if (guesses[activeGuessIndex].indexOf("") !== -1) return;
-
-    if (guesses[activeGuessIndex].join("").toUpperCase() === word) {
-      renderNotification("Parabéns");
-      setActiveGuessIndex(-1);
-
-      return;
-    }
-
-    setActiveGuessIndex((index) => index + 1);
-    renderNotification("");
-  }, [guesses]);
 
   useEffect(() => {
     if (activeGuessIndex === guesses.length) {
       renderNotification("Mais sorte da próxima vez");
     }
-  }, [activeGuessIndex, guesses, renderNotification]);
+  }, [activeGuessIndex]);
 
   return (
     <div className={styles.guesses}>

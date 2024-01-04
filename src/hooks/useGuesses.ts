@@ -16,11 +16,13 @@ const useGuesses = () => {
   // Tenta ler as tentativas no localStorage
   useEffect(() => {
     const storageGuesses = localStorage.getItem("guesses");
+    const storageIndex = localStorage.getItem("activeIndex");
     const storageDate = localStorage.getItem("lastLoggedDate");
 
     const isValidDate = storageDate === new Date().toDateString();
 
     if (storageGuesses && isValidDate) {
+      setActiveGuessIndex(Number(storageIndex));
       setGuesses(JSON.parse(storageGuesses));
       return;
     }
@@ -31,7 +33,7 @@ const useGuesses = () => {
     getValidWords().then((words) => (validWords.current = words));
   }, []);
 
-  function sendGuess(newGuess: string[]) {
+  function sendGuess(newGuess: string[], correctWord: string) {
     if (newGuess.indexOf("") !== -1) {
       renderNotification("Só palavras com 5 letras");
       return;
@@ -46,8 +48,19 @@ const useGuesses = () => {
     newGuesses[activeGuessIndex] = newGuess;
 
     setGuesses(newGuesses);
+    setActiveGuessIndex((index) => index + 1);
+
+    renderNotification("");
+
+    if (newGuess.join("").toUpperCase() === correctWord) {
+      renderNotification("Parabéns");
+      setActiveGuessIndex(-1);
+
+      return;
+    }
   }
 
+  // Recupera as tentaticas do localStorage
   const isFirstRender = useRef(true);
   useEffect(() => {
     if (isFirstRender.current) {
@@ -56,17 +69,10 @@ const useGuesses = () => {
     }
 
     localStorage.setItem("guesses", JSON.stringify(guesses));
-  }, [guesses]);
+    localStorage.setItem("activeIndex", String(activeGuessIndex));
+  }, [guesses, activeGuessIndex]);
 
-  useEffect(() => {
-    guesses.forEach((guess, index) => {
-      if (guess.indexOf("") !== -1) return;
-
-      setActiveGuessIndex(index);
-    });
-  }, [guesses]);
-
-  return { guesses, sendGuess, activeGuessIndex, setActiveGuessIndex };
+  return { guesses, sendGuess, activeGuessIndex };
 };
 
 export default useGuesses;
