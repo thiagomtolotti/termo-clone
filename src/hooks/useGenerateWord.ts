@@ -22,6 +22,11 @@ const useGenerateWord = () => {
 
     const isValidDate = storageDate === new Date().toDateString();
 
+    if (!isValidDate) {
+      localStorage.clear();
+      return;
+    }
+
     if (!storageRandomWord || !isValidDate) {
       generateNewWord().then((newWord) => setWord(newWord));
       return;
