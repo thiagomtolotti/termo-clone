@@ -36,9 +36,7 @@ export const Keyboard = () => {
   return (
     <div className={styles.keyboard}>
       {KEYS.map((key) => (
-        <Key key={key} state="correct">
-          {key}
-        </Key>
+        <Key key={key}>{key}</Key>
       ))}
     </div>
   );

@@ -5,6 +5,10 @@
   gap: 6px;
 
   height: var(--keyboard-height);
+
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
 }
 
 .keyboard > *:nth-child(11) {

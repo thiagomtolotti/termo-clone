@@ -24,7 +24,6 @@ const useGenerateWord = () => {
 
     if (!isValidDate) {
       localStorage.clear();
-      return;
     }
 
     if (!storageRandomWord || !isValidDate) {

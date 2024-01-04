@@ -22,7 +22,6 @@ const useGuesses = () => {
     const isValidDate = storageDate === new Date().toDateString();
     if (!isValidDate) {
       localStorage.clear();
-      return;
     }
 
     if (storageGuesses && isValidDate) {
