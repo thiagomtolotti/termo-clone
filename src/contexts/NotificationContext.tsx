@@ -1,24 +1,26 @@
 import { createContext, useState } from "react";
 
-interface DeviceProviderProps {
+interface NotificationProviderProps {
   children: React.ReactNode;
 }
 
-interface DeviceContextType {
+interface NotificationContextType {
   notification: string;
   renderNotification: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const DeviceContext = createContext<DeviceContextType>(
-  {} as DeviceContextType
+export const NotificationContext = createContext<NotificationContextType>(
+  {} as NotificationContextType
 );
 
-export const DeviceProvider = ({ children }: DeviceProviderProps) => {
+export const NotificationProvider = ({
+  children,
+}: NotificationProviderProps) => {
   const [notification, renderNotification] = useState<string>("");
 
   return (
-    <DeviceContext.Provider value={{ notification, renderNotification }}>
+    <NotificationContext.Provider value={{ notification, renderNotification }}>
       {children}
-    </DeviceContext.Provider>
+    </NotificationContext.Provider>
   );
 };

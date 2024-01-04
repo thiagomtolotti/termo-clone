@@ -4,12 +4,12 @@ import App from "./App.tsx";
 import "./index.css";
 
 import "normalize.css";
-import { DeviceProvider } from "./contexts/NotificationContext.tsx";
+import { NotificationProvider } from "./contexts/NotificationContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <DeviceProvider>
+    <NotificationProvider>
       <App />
-    </DeviceProvider>
+    </NotificationProvider>
   </React.StrictMode>
 );

@@ -1,9 +1,9 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { DeviceContext } from "../contexts/NotificationContext";
+import { NotificationContext } from "../contexts/NotificationContext";
 import getValidWords from "../utils/getValidWords";
 
 const useGuesses = () => {
-  const { renderNotification } = useContext(DeviceContext);
+  const { renderNotification } = useContext(NotificationContext);
   const validWords = useRef<string[]>();
 
   const NUMBER_OF_GUESSES = 6;

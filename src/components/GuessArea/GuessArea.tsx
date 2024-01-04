@@ -3,7 +3,7 @@ import styles from "./GuessArea.module.css";
 import { useContext, useEffect } from "react";
 import ActiveGuessRow from "../ActiveGuessRow";
 import GuessRow from "../GuessRow";
-import { DeviceContext } from "../../contexts/NotificationContext";
+import { NotificationContext } from "../../contexts/NotificationContext";
 import useGuesses from "../../hooks/useGuesses";
 
 const NUMBER_OF_GUESSES = 6;
@@ -20,7 +20,7 @@ interface GuessAreaProps {
 }
 
 export const GuessArea = ({ word }: GuessAreaProps) => {
-  const { renderNotification } = useContext(DeviceContext);
+  const { renderNotification } = useContext(NotificationContext);
   const { guesses, sendGuess, activeGuessIndex } = useGuesses();
 
   function handleSendGuess(ev: React.KeyboardEvent, newGuess: string[]) {

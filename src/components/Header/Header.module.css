@@ -7,3 +7,7 @@
   display: flex;
   justify-content: center;
 }
+
+.header h1 {
+  letter-spacing: 2px;
+}

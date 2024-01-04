@@ -15,3 +15,13 @@
   user-select: none;
   cursor: pointer;
 }
+
+.key.correct {
+  background-color: var(--green40);
+}
+
+.key.misplaced {
+}
+
+.key.wrong {
+}
