@@ -20,6 +20,10 @@ const useGuesses = () => {
     const storageDate = localStorage.getItem("lastLoggedDate");
 
     const isValidDate = storageDate === new Date().toDateString();
+    if (!isValidDate) {
+      localStorage.clear();
+      return;
+    }
 
     if (storageGuesses && isValidDate) {
       setActiveGuessIndex(Number(storageIndex));

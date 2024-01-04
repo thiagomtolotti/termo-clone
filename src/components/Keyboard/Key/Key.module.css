@@ -21,7 +21,10 @@
 }
 
 .key.misplaced {
+  background-color: var(--yellow60);
 }
 
 .key.wrong {
+  background-color: var(--main15);
+  color: var(--main40);
 }

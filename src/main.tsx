@@ -5,11 +5,14 @@ import "./index.css";
 
 import "normalize.css";
 import { NotificationProvider } from "./contexts/NotificationContext.tsx";
+import { UsedKeysProvider } from "./contexts/UsedKeysContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <NotificationProvider>
-      <App />
+      <UsedKeysProvider>
+        <App />
+      </UsedKeysProvider>
     </NotificationProvider>
   </React.StrictMode>
 );
