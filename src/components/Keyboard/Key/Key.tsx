@@ -2,6 +2,8 @@ import { useContext, useRef } from "react";
 import styles from "./Key.module.css";
 import { UsedKeysContext } from "../../../contexts/UsedKeysContext";
 
+import backspaceImg from "../../../assets/backspace.svg";
+
 interface KeyProps {
   children: string;
 }
@@ -31,8 +33,13 @@ export const Key = ({ children }: KeyProps) => {
       onClick={() => {
         document.dispatchEvent(event);
       }}
+      id={children === "Enter" ? styles.enter : ""}
     >
-      {children}
+      {children !== "Backspace" ? (
+        children
+      ) : (
+        <img src={backspaceImg} width={28} />
+      )}
     </div>
   );
 };

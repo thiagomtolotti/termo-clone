@@ -5,7 +5,7 @@ import { useEffect, useState, useLayoutEffect } from "react";
 import isLetter from "../../utils/isLetter";
 
 interface ActiveGuessRowProps {
-  sendGuess: (ev: React.KeyboardEvent, newGuess: string[]) => void;
+  sendGuess: (ev: KeyboardEvent, newGuess: string[]) => void;
 }
 
 export const ActiveGuessRow = ({ sendGuess }: ActiveGuessRowProps) => {
@@ -58,6 +58,16 @@ export const ActiveGuessRow = ({ sendGuess }: ActiveGuessRowProps) => {
     };
   }, []);
 
+  useEffect(() => {
+    document.addEventListener("keydown", (ev) => sendGuess(ev, guessValue));
+
+    return () => {
+      document.removeEventListener("keydown", (ev) =>
+        sendGuess(ev, guessValue)
+      );
+    };
+  }, [guessValue, sendGuess]);
+
   useLayoutEffect(() => {
     if (activeGuessIndex > 4) {
       setActiveGuessIndex(4);
@@ -71,10 +81,7 @@ export const ActiveGuessRow = ({ sendGuess }: ActiveGuessRowProps) => {
   }, [activeGuessIndex]);
 
   return (
-    <div
-      className={`${styles.guessRow}`}
-      onKeyDown={(ev) => sendGuess(ev, guessValue)}
-    >
+    <div className={`${styles.guessRow}`}>
       {guessValue.map((_, index) => (
         <Guess
           key={index}

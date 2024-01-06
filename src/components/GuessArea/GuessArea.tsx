@@ -23,7 +23,7 @@ export const GuessArea = ({ word }: GuessAreaProps) => {
   const { renderNotification } = useContext(NotificationContext);
   const { guesses, sendGuess, activeGuessIndex } = useGuesses();
 
-  function handleSendGuess(ev: React.KeyboardEvent, newGuess: string[]) {
+  function handleSendGuess(ev: KeyboardEvent, newGuess: string[]) {
     if (ev.key !== "Enter") return;
 
     sendGuess(newGuess, word);

@@ -22,7 +22,7 @@ const KEYS = [
   "j",
   "k",
   "l",
-  "",
+  "Backspace",
   "z",
   "x",
   "c",
@@ -30,6 +30,7 @@ const KEYS = [
   "b",
   "n",
   "m",
+  "Enter",
 ];
 
 export const Keyboard = () => {

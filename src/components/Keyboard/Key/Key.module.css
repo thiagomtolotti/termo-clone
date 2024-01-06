@@ -29,3 +29,7 @@
   background-color: var(--main15);
   color: var(--main40);
 }
+
+#enter {
+  grid-column: 25 / span 8;
+}
