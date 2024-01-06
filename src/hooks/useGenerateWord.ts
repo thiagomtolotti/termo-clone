@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import getValidWords from "../utils/getValidWords";
+import seedrandom from "seedrandom";
 
 const useGenerateWord = () => {
   const [word, setWord] = useState<string>();
@@ -7,8 +8,17 @@ const useGenerateWord = () => {
   async function generateNewWord(): Promise<string> {
     const allWords = await getValidWords();
 
-    const randomWord =
-      allWords[Math.floor(Math.random() * allWords.length)].toUpperCase();
+    const currentDate = new Date();
+    currentDate.setHours(0);
+    currentDate.setMinutes(0);
+    currentDate.setSeconds(0);
+    currentDate.setMilliseconds(0);
+
+    const wordIndex = Math.floor(
+      seedrandom(currentDate.getTime())() * allWords.length
+    );
+
+    const randomWord = allWords[wordIndex];
 
     localStorage.setItem("randomWord", randomWord);
     localStorage.setItem("lastLoggedDate", new Date().toDateString());
