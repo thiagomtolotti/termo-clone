@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import getValidWords from "../utils/getValidWords";
+// @ts-expect-error Ts reclama desse módulo por algum motivo
 import seedrandom from "seedrandom";
 
 const useGenerateWord = () => {
