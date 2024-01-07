@@ -1,4 +1,8 @@
 .row {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, min-content);
   gap: 6px;
+
+  /* width: 100%; */
+  margin: 0 auto;
 }

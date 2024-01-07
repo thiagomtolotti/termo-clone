@@ -51,7 +51,6 @@ const useGuesses = () => {
 
     const newGuesses = [...guesses];
     newGuesses[activeGuessIndex] = newGuess;
-    console.log(newGuesses);
 
     setGuesses(newGuesses);
     setActiveGuessIndex((index) => index + 1);

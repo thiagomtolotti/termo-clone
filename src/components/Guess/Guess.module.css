@@ -1,7 +1,8 @@
 .guess {
   position: relative;
 
-  width: 64px;
+  /* width: 64px; */
+  width: clamp(0px, 12vw, 64px);
   aspect-ratio: 1;
 
   border-radius: 4px;
@@ -15,6 +16,8 @@
   text-transform: uppercase;
   font-size: 2.4em;
   font-weight: 600;
+
+  line-height: 1;
 }
 
 .guess span {
@@ -41,4 +44,10 @@
 
 .guess.correct {
   background-color: var(--green40);
+}
+
+@media screen and (max-width: 468px) {
+  .guess {
+    font-size: 1.8em;
+  }
 }

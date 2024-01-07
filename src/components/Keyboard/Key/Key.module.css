@@ -33,3 +33,8 @@
 #enter {
   grid-column: 25 / span 8;
 }
+@media screen and (max-width: 468px) {
+  .key {
+    font-size: 1em;
+  }
+}

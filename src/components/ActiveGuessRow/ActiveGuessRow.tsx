@@ -9,7 +9,7 @@ interface ActiveGuessRowProps {
 }
 
 export const ActiveGuessRow = ({ sendGuess }: ActiveGuessRowProps) => {
-  const [guessValue, setGuessValue] = useState(Array(5).fill(""));
+  const [guessValue, setGuessValue] = useState<string[]>(Array(5).fill(""));
   const [activeGuessIndex, setActiveGuessIndex] = useState(0);
 
   function updateGuessValue(value: string) {
@@ -61,8 +61,6 @@ export const ActiveGuessRow = ({ sendGuess }: ActiveGuessRowProps) => {
   useEffect(() => {
     function handleSendGuess(ev: KeyboardEvent) {
       if (ev.key !== "Enter") return;
-
-      console.log(guessValue);
 
       sendGuess(guessValue);
     }
