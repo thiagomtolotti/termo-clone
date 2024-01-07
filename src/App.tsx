@@ -1,17 +1,18 @@
+import { useContext } from "react";
 import Footer from "./components/Footer";
 import GuessArea from "./components/GuessArea";
 import Header from "./components/Header";
 import Keyboard from "./components/Keyboard";
-import useGenerateWord from "./hooks/useGenerateWord";
+import { CorrectWordContext } from "./contexts/CorrectWordContext";
 
 function App() {
-  const word = useGenerateWord();
+  const { word } = useContext(CorrectWordContext);
 
   return (
-    word && (
+    Boolean(word) && (
       <>
         <Header />
-        <GuessArea word={word} />
+        <GuessArea />
         <Keyboard />
         <Footer />
       </>

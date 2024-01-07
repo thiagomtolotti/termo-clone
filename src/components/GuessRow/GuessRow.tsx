@@ -3,13 +3,14 @@ import styles from "./GuessRow.module.css";
 import Guess from "../Guess";
 import { useContext } from "react";
 import { UsedKeysContext } from "../../contexts/UsedKeysContext";
+import { CorrectWordContext } from "../../contexts/CorrectWordContext";
 
 interface GuessRowProps {
   value: string[];
-  word: string;
 }
 
-export const GuessRow = ({ value, word }: GuessRowProps) => {
+export const GuessRow = ({ value }: GuessRowProps) => {
+  const { word } = useContext(CorrectWordContext);
   const { setMisplacedLetters, setWrongLetters, setCorrectLetters } =
     useContext(UsedKeysContext);
 

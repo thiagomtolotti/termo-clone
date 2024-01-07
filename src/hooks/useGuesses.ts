@@ -1,9 +1,11 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { NotificationContext } from "../contexts/NotificationContext";
 import getValidWords from "../utils/getValidWords";
+import { CorrectWordContext } from "../contexts/CorrectWordContext";
 
 const useGuesses = () => {
   const { renderNotification } = useContext(NotificationContext);
+  const { word } = useContext(CorrectWordContext);
   const validWords = useRef<string[]>();
 
   const NUMBER_OF_GUESSES = 6;
@@ -36,7 +38,7 @@ const useGuesses = () => {
     getValidWords().then((words) => (validWords.current = words));
   }, []);
 
-  function sendGuess(newGuess: string[], correctWord: string) {
+  function sendGuess(newGuess: string[]) {
     if (newGuess.indexOf("") !== -1) {
       renderNotification("Só palavras com 5 letras");
       return;
@@ -49,13 +51,14 @@ const useGuesses = () => {
 
     const newGuesses = [...guesses];
     newGuesses[activeGuessIndex] = newGuess;
+    console.log(newGuesses);
 
     setGuesses(newGuesses);
     setActiveGuessIndex((index) => index + 1);
 
     renderNotification("");
 
-    if (newGuess.join("").toUpperCase() === correctWord) {
+    if (newGuess.join("").toUpperCase() === word) {
       renderNotification("Parabéns");
       setActiveGuessIndex(-1);
 

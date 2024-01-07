@@ -5,7 +5,7 @@ import { useEffect, useState, useLayoutEffect } from "react";
 import isLetter from "../../utils/isLetter";
 
 interface ActiveGuessRowProps {
-  sendGuess: (ev: KeyboardEvent, newGuess: string[]) => void;
+  sendGuess: (guess: string[]) => void;
 }
 
 export const ActiveGuessRow = ({ sendGuess }: ActiveGuessRowProps) => {
@@ -59,12 +59,18 @@ export const ActiveGuessRow = ({ sendGuess }: ActiveGuessRowProps) => {
   }, []);
 
   useEffect(() => {
-    document.addEventListener("keydown", (ev) => sendGuess(ev, guessValue));
+    function handleSendGuess(ev: KeyboardEvent) {
+      if (ev.key !== "Enter") return;
+
+      console.log(guessValue);
+
+      sendGuess(guessValue);
+    }
+
+    document.addEventListener("keydown", handleSendGuess);
 
     return () => {
-      document.removeEventListener("keydown", (ev) =>
-        sendGuess(ev, guessValue)
-      );
+      document.removeEventListener("keydown", handleSendGuess);
     };
   }, [guessValue, sendGuess]);
 

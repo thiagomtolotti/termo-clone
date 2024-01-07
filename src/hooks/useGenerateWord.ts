@@ -4,7 +4,7 @@ import getValidWords from "../utils/getValidWords";
 import seedrandom from "seedrandom";
 
 const useGenerateWord = () => {
-  const [word, setWord] = useState<string>();
+  const [word, setWord] = useState<string>("");
 
   async function generateNewWord(): Promise<string> {
     const allWords = await getValidWords();
@@ -19,7 +19,7 @@ const useGenerateWord = () => {
       seedrandom(currentDate.getTime())() * allWords.length
     );
 
-    const randomWord = allWords[wordIndex];
+    const randomWord = allWords[wordIndex].toUpperCase();
 
     localStorage.setItem("randomWord", randomWord);
     localStorage.setItem("lastLoggedDate", new Date().toDateString());

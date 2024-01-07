@@ -15,34 +15,24 @@ for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
   initialState.push(guess);
 }
 
-interface GuessAreaProps {
-  word: string;
-}
-
-export const GuessArea = ({ word }: GuessAreaProps) => {
+export const GuessArea = () => {
   const { renderNotification } = useContext(NotificationContext);
-  const { guesses, sendGuess, activeGuessIndex } = useGuesses();
-
-  function handleSendGuess(ev: KeyboardEvent, newGuess: string[]) {
-    if (ev.key !== "Enter") return;
-
-    sendGuess(newGuess, word);
-  }
+  const { guesses, activeGuessIndex, sendGuess } = useGuesses();
 
   useEffect(() => {
     if (activeGuessIndex === guesses.length) {
       renderNotification("Mais sorte da próxima vez");
     }
-  }, [activeGuessIndex]);
+  }, [activeGuessIndex, guesses.length, renderNotification]);
 
   return (
     <div className={styles.guesses}>
       {guesses.map((_, index) => {
         if (activeGuessIndex !== index) {
-          return <GuessRow value={guesses[index]} key={index} word={word} />;
+          return <GuessRow value={guesses[index]} key={index} />;
         }
 
-        return <ActiveGuessRow sendGuess={handleSendGuess} key={index} />;
+        return <ActiveGuessRow key={index} sendGuess={sendGuess} />;
       })}
     </div>
   );
