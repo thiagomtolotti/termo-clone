@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component Header Should render correctly 1`] = `
+<div>
+  <header
+    class="header"
+  >
+    <h1>
+      Termo
+    </h1>
+  </header>
+</div>
+`;
