@@ -3,7 +3,7 @@
 exports[`GuessLetter component Should render correctly 1`] = `
 <div>
   <div
-    class="guess"
+    class="guess "
     role="guess"
   />
 </div>

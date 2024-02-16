@@ -4,41 +4,44 @@ import { useEffect, useState } from "react";
 import styles from "./GuessLetter.module.css";
 
 interface GuessLetterProps {
-  active?: boolean;
+	active?: boolean;
 }
 
 const letterRegex = /^[a-zA-Z]$/;
 
 export const GuessLetter = ({ active = false }: GuessLetterProps) => {
-  const [value, setValue] = useState("");
+	const [value, setValue] = useState("");
 
-  const handleKeyDown = (ev: KeyboardEvent) => {
-    if (!active) return;
+	const handleKeyDown = (ev: KeyboardEvent) => {
+		if (!active) return;
 
-    const keyPressed = ev.key;
+		const keyPressed = ev.key;
 
-    if (keyPressed === "Backspace") {
-      setValue("");
+		if (keyPressed === "Backspace") {
+			setValue("");
 
-      return;
-    }
+			return;
+		}
 
-    if (!letterRegex.test(keyPressed)) return;
+		if (!letterRegex.test(keyPressed)) return;
 
-    setValue(keyPressed.toUpperCase());
-  };
+		setValue(keyPressed.toUpperCase());
+	};
 
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
+	useEffect(() => {
+		document.addEventListener("keydown", handleKeyDown);
 
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
+		return () => {
+			document.removeEventListener("keydown", handleKeyDown);
+		};
+	}, []);
 
-  return (
-    <div role="guess" className={styles.guess}>
-      {value}
-    </div>
-  );
+	return (
+		<div
+			role="guess"
+			className={`${styles.guess} ${active ? styles.active : ""}`}
+		>
+			{value}
+		</div>
+	);
 };
