@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GuessRow element Should render correctly 1`] = `
+<div>
+  <div
+    role="guess-wrapper"
+  >
+    <div
+      class="guess "
+      role="guess"
+    />
+  </div>
+  <div
+    role="guess-wrapper"
+  >
+    <div
+      class="guess "
+      role="guess"
+    />
+  </div>
+  <div
+    role="guess-wrapper"
+  >
+    <div
+      class="guess "
+      role="guess"
+    />
+  </div>
+  <div
+    role="guess-wrapper"
+  >
+    <div
+      class="guess "
+      role="guess"
+    />
+  </div>
+  <div
+    role="guess-wrapper"
+  >
+    <div
+      class="guess "
+      role="guess"
+    />
+  </div>
+</div>
+`;
