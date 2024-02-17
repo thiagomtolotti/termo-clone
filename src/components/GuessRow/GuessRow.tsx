@@ -43,15 +43,22 @@ export const GuessRow = ({ active = false }: GuessRowProps) => {
     };
   }, [activeGuessIndex]);
 
-  return [...Array(WORD_SIZE)].map((_, index) => (
+  return (
     <div
-      onClick={() => {
-        setActiveGuessIndex(index);
-      }}
-      role="guess-wrapper"
-      key={index}
+      className={`${styles.guessRow} ${active ? styles.active : ""}`}
+      role="guess-row"
     >
-      <GuessLetter active={active && activeGuessIndex === index} />
+      {[...Array(WORD_SIZE)].map((_, index) => (
+        <div
+          onClick={() => {
+            setActiveGuessIndex(index);
+          }}
+          role="guess-wrapper"
+          key={index}
+        >
+          <GuessLetter active={active && activeGuessIndex === index} />
+        </div>
+      ))}
     </div>
-  ));
+  );
 };

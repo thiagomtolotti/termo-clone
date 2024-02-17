@@ -1,0 +1,5 @@
+.guessRow {
+  display: flex;
+  gap: 4px;
+  margin: 4px;
+}

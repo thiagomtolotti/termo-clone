@@ -1,12 +1,11 @@
-import { GuessLetter } from "@/components/GuessLetter/GuessLetter";
-import { GuessRow } from "@/components/GuessRow/GuessRow";
+import { GuessArea } from "@/components/GuessArea/GuessArea";
 import { Header } from "@/components/Header/Header";
 
 export default function Home() {
-	return (
-		<>
-			<Header />
-			<GuessRow active />
-		</>
-	);
+  return (
+    <>
+      <Header />
+      <GuessArea />
+    </>
+  );
 }
