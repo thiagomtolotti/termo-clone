@@ -4,14 +4,14 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { GuessLetter } from "../GuessLetter/GuessLetter";
 import styles from "./GuessRow.module.css";
 
-const WORD_SIZE = 5;
-const letterRegex = /^[a-zA-Z]$/;
-
 interface GuessRowProps {
   active?: boolean;
 }
 
 export const GuessRow = ({ active = false }: GuessRowProps) => {
+  const WORD_SIZE = 5;
+  const letterRegex = /^[a-zA-Z]$/;
+
   const [activeGuessIndex, setActiveGuessIndex] = useState(0);
   const [rowValue, setRowValue] = useState(Array(WORD_SIZE).fill(""));
 

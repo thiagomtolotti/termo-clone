@@ -3,44 +3,34 @@
 exports[`GuessRow element Should render correctly 1`] = `
 <div>
   <div
-    class="guessRow "
+    class="guessRow active"
     role="guess-row"
   >
-    <div
-      role="guess-wrapper"
-    >
+    <div>
+      <div
+        class="guess active"
+        role="guess"
+      />
+    </div>
+    <div>
       <div
         class="guess "
         role="guess"
       />
     </div>
-    <div
-      role="guess-wrapper"
-    >
+    <div>
       <div
         class="guess "
         role="guess"
       />
     </div>
-    <div
-      role="guess-wrapper"
-    >
+    <div>
       <div
         class="guess "
         role="guess"
       />
     </div>
-    <div
-      role="guess-wrapper"
-    >
-      <div
-        class="guess "
-        role="guess"
-      />
-    </div>
-    <div
-      role="guess-wrapper"
-    >
+    <div>
       <div
         class="guess "
         role="guess"
