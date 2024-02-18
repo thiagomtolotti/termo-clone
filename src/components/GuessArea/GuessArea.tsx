@@ -12,9 +12,7 @@ export const GuessArea = () => {
     const handleEnterClick = (ev: KeyboardEvent) => {
       if (!ev.key.toLowerCase().includes("enter")) return;
 
-      setActiveRow((activeRow) =>
-        Math.min(activeRow + 1, NUMBER_OF_GUESSES - 1)
-      );
+      setActiveRow((activeRow) => Math.min(activeRow + 1, NUMBER_OF_GUESSES));
     };
 
     document.addEventListener("keydown", handleEnterClick);

@@ -221,13 +221,17 @@ describe("GuessRow element", () => {
       render(<GuessRow active />);
 
       const guesses = screen.getAllByRole("guess");
-      const activeGuess = guesses.find((guess) =>
-        guess.classList.contains("active")
-      );
 
       fireEvent.keyDown(document.body, keyDownEvent);
+      fireEvent.keyDown(document.body, keyDownEvent);
+      fireEvent.keyDown(document.body, keyDownEvent);
+      fireEvent.keyDown(document.body, keyDownEvent);
+      fireEvent.keyDown(document.body, keyDownEvent);
+      3;
 
-      expect(activeGuess?.innerHTML).toBe(keyDownEvent.key);
+      guesses.forEach((guess) => {
+        expect(guess.innerHTML).toBe(keyDownEvent.key);
+      });
     });
 
     it("Should advance to the next guess", () => {
