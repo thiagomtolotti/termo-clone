@@ -45,4 +45,8 @@ describe("GuessArea component", () => {
 
     expect(rows[1].classList.contains("active")).toBe(true);
   });
+
+  it("Shouldn't register the guess if it's empty", () => {
+    expect(true).toBeFalsy();
+  });
 });
