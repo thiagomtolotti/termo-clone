@@ -30,4 +30,19 @@ describe("GuessArea component", () => {
 
     expect(rows[1].classList.contains("active")).toBe(true);
   });
+
+  it("Should register the guess when the numpad enter is pressed", () => {
+    render(<GuessArea />);
+
+    const rows = screen.getAllByRole("guess-row");
+
+    const enterKeyDownEvent = {
+      key: "NumpadEnter",
+      code: "NumpadEnter",
+    };
+
+    fireEvent.keyDown(document.body, enterKeyDownEvent);
+
+    expect(rows[1].classList.contains("active")).toBe(true);
+  });
 });

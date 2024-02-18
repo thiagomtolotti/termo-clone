@@ -10,7 +10,7 @@ export const GuessArea = () => {
 
   useEffect(() => {
     const handleEnterClick = (ev: KeyboardEvent) => {
-      if (ev.code !== "Enter") return;
+      if (!ev.key.toLowerCase().includes("enter")) return;
 
       setActiveRow((activeRow) =>
         Math.min(activeRow + 1, NUMBER_OF_GUESSES - 1)
