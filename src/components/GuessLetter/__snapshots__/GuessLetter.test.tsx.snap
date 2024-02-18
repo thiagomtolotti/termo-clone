@@ -5,6 +5,19 @@ exports[`GuessLetter component Should render correctly 1`] = `
   <div
     class="guess "
     role="guess"
-  />
+  >
+    T
+  </div>
+</div>
+`;
+
+exports[`GuessLetter component Should render correctly if it's active 1`] = `
+<div>
+  <div
+    class="guess active"
+    role="guess"
+  >
+    T
+  </div>
 </div>
 `;
