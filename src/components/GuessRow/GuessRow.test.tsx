@@ -1,4 +1,9 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import {
+  fireEvent,
+  getAllByRole,
+  render,
+  screen,
+} from "@testing-library/react";
 import { GuessRow } from "./GuessRow";
 
 describe("GuessRow element", () => {
@@ -108,7 +113,7 @@ describe("GuessRow element", () => {
   });
 
   describe("it is not active", () => {
-    it("Shouldn't have an active guess", () => {
+    it("Shouldn't have an active guess on initial render", () => {
       const { getAllByRole } = render(<GuessRow />);
 
       const guessLetters = getAllByRole("guess-wrapper");
@@ -118,6 +123,53 @@ describe("GuessRow element", () => {
       );
 
       expect(hasActiveGuess).toBe(false);
+    });
+  });
+
+  describe("when it becames active", () => {
+    describe("Should have the active guess as the first of the row", () => {
+      test("when the arrow is clicked", () => {
+        const arrowRightKeyDownEvt = {
+          key: "ArrowRight",
+          code: "ArrowRight",
+        };
+        const { rerender } = render(<GuessRow />);
+        const guess = screen.getAllByRole("guess")[0];
+
+        fireEvent.keyDown(document.body, arrowRightKeyDownEvt);
+
+        rerender(<GuessRow active />);
+
+        expect(guess.classList.contains("active")).toBe(true);
+      });
+
+      test("When there's a mouse click", () => {
+        const { rerender } = render(<GuessRow />);
+        const guess = screen.getAllByRole("guess")[0];
+        const guessWrapper = screen.getAllByRole("guess-wrapper")[2];
+
+        fireEvent.click(guessWrapper);
+
+        rerender(<GuessRow active />);
+
+        expect(guess.classList.contains("active")).toBe(true);
+      });
+
+      test("When there's keyboard input", () => {
+        const keyDownEvent = {
+          key: "T",
+          code: "T",
+        };
+
+        const { rerender } = render(<GuessRow />);
+        const guess = screen.getAllByRole("guess")[0];
+
+        fireEvent.keyDown(document.body, keyDownEvent);
+
+        rerender(<GuessRow active />);
+
+        expect(guess.classList.contains("active")).toBe(true);
+      });
     });
   });
 });

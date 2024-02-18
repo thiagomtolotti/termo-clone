@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { GuessLetter } from "../GuessLetter/GuessLetter";
 import styles from "./GuessRow.module.css";
 
@@ -13,6 +13,10 @@ interface GuessRowProps {
 
 export const GuessRow = ({ active = false }: GuessRowProps) => {
   const [activeGuessIndex, setActiveGuessIndex] = useState(0);
+
+  useLayoutEffect(() => {
+    setActiveGuessIndex(0);
+  }, [active]);
 
   useEffect(() => {
     const handleArrowClick = (ev: KeyboardEvent) => {
