@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 const NUMBER_OF_GUESSES = 6;
 const WORD_SIZE = 5;
@@ -28,7 +28,7 @@ export const useInputs = () => {
       setCurrentPosition((currentPosition) => {
         const [rowPos, colPos] = currentPosition;
 
-        const newColPos = Math.min(colPos + 1, WORD_SIZE - 1);
+        const newColPos = colPos + 1;
 
         return [rowPos, newColPos];
       });
@@ -51,7 +51,7 @@ export const useInputs = () => {
       setCurrentPosition((currentPosition) => {
         const [rowPos, colPos] = currentPosition;
 
-        const newColPos = Math.max(colPos - 1, 0);
+        const newColPos = colPos - 1;
 
         return [rowPos, newColPos];
       });
@@ -66,17 +66,18 @@ export const useInputs = () => {
         setCurrentPosition((currentPosition) => {
           const [rowPos, colPos] = currentPosition;
 
-          const newColPos = Math.min(colPos + 1, WORD_SIZE - 1);
+          const newColPos = colPos + 1;
 
           return [rowPos, newColPos];
         });
 
         return;
       }
+
       setCurrentPosition((currentPosition) => {
         const [rowPos, colPos] = currentPosition;
 
-        const newColPos = Math.max(colPos - 1, 0);
+        const newColPos = colPos - 1;
 
         return [rowPos, newColPos];
       });
@@ -90,7 +91,7 @@ export const useInputs = () => {
       setCurrentPosition((currentPosition) => {
         const [rowPos, _] = currentPosition;
 
-        const newRowPos = Math.min(rowPos + 1, NUMBER_OF_GUESSES);
+        const newRowPos = rowPos + 1;
 
         return [newRowPos, 0];
       });
@@ -107,6 +108,33 @@ export const useInputs = () => {
       document.removeEventListener("keydown", handleArrowClick);
       document.removeEventListener("keydown", handleEnterClick);
     };
+  }, [currentPosition]);
+
+  useLayoutEffect(() => {
+    const activeGuess = currentPosition[1];
+    const activeRow = currentPosition[0];
+
+    if (activeGuess > WORD_SIZE - 1) {
+      setCurrentPosition((currentPosition) => {
+        const [rowPos, _] = currentPosition;
+
+        const newColPos = WORD_SIZE - 1;
+
+        return [rowPos, newColPos];
+      });
+    }
+
+    if (activeGuess < 0) {
+      setCurrentPosition((currentPosition) => {
+        const [rowPos, _] = currentPosition;
+
+        return [rowPos, 0];
+      });
+    }
+
+    if (activeRow > NUMBER_OF_GUESSES - 1) {
+      setCurrentPosition([-1, 0]);
+    }
   }, [currentPosition]);
 
   // useLayoutEffect(() => {
