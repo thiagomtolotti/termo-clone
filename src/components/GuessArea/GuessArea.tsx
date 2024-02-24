@@ -4,14 +4,14 @@ import { GuessRow } from "../GuessRow/GuessRow";
 import { useInputs } from "../hooks/useInputs";
 
 export const GuessArea = () => {
-  const { rowsValue, currentRow, currentGuessIndex } = useInputs();
+  const { rowsValue, currentPosition } = useInputs();
 
   return rowsValue.map((rowValue, index) => (
     <GuessRow
-      active={currentRow === index}
+      active={currentPosition[0] === index}
       value={rowValue}
       key={index}
-      activeIndex={currentGuessIndex}
+      activeIndex={currentPosition[1]}
     />
   ));
 };

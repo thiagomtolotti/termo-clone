@@ -1,15 +1,14 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const NUMBER_OF_GUESSES = 6;
 const WORD_SIZE = 5;
 const letterRegex = /^[a-zA-Z]$/;
 
 export const useInputs = () => {
-  const [currentRow, setCurrentRow] = useState(0);
-  const [currentGuessIndex, setCurrentGuessIndex] = useState(0);
   const [rowsValue, setRowsValue] = useState(
     Array.from({ length: NUMBER_OF_GUESSES }, () => Array(WORD_SIZE).fill(""))
   );
+  const [currentPosition, setCurrentPosition] = useState<number[]>([0, 0]);
 
   useEffect(() => {
     const handleLetterClick = (ev: KeyboardEvent) => {
@@ -19,16 +18,20 @@ export const useInputs = () => {
 
       setRowsValue((rowsValue) => {
         const newValue = [...rowsValue];
-        const activeRowValue = newValue[currentRow];
+        const activeRowValue = newValue[currentPosition[0]];
 
-        activeRowValue[currentGuessIndex] = keyPressed.toUpperCase();
+        activeRowValue[currentPosition[1]] = keyPressed.toUpperCase();
 
         return newValue;
       });
 
-      setCurrentGuessIndex((currentGuessIndex) =>
-        Math.min(currentGuessIndex + 1, WORD_SIZE - 1)
-      );
+      setCurrentPosition((currentPosition) => {
+        const [rowPos, colPos] = currentPosition;
+
+        const newColPos = Math.min(colPos + 1, WORD_SIZE - 1);
+
+        return [rowPos, newColPos];
+      });
     };
 
     const handleBackspaceClick = (ev: KeyboardEvent) => {
@@ -38,14 +41,20 @@ export const useInputs = () => {
 
       setRowsValue((rowValue) => {
         const newValue = [...rowValue];
-        const activeRowValue = newValue[currentRow];
+        const activeRowValue = newValue[currentPosition[0]];
 
-        activeRowValue[currentGuessIndex] = "";
+        activeRowValue[currentPosition[1]] = "";
 
         return newValue;
       });
 
-      setCurrentGuessIndex((activeIndex) => Math.max(activeIndex - 1, 0));
+      setCurrentPosition((currentPosition) => {
+        const [rowPos, colPos] = currentPosition;
+
+        const newColPos = Math.max(colPos - 1, 0);
+
+        return [rowPos, newColPos];
+      });
     };
 
     const handleArrowClick = (ev: KeyboardEvent) => {
@@ -54,22 +63,37 @@ export const useInputs = () => {
       if (!isArrowKey) return;
 
       if (ev.key === "ArrowRight") {
-        setCurrentGuessIndex((activeIndex) =>
-          Math.min(activeIndex + 1, WORD_SIZE - 1)
-        );
+        setCurrentPosition((currentPosition) => {
+          const [rowPos, colPos] = currentPosition;
+
+          const newColPos = Math.min(colPos + 1, WORD_SIZE - 1);
+
+          return [rowPos, newColPos];
+        });
 
         return;
       }
+      setCurrentPosition((currentPosition) => {
+        const [rowPos, colPos] = currentPosition;
 
-      setCurrentGuessIndex((activeIndex) => Math.max(activeIndex - 1, 0));
+        const newColPos = Math.max(colPos - 1, 0);
+
+        return [rowPos, newColPos];
+      });
     };
 
     const handleEnterClick = (ev: KeyboardEvent) => {
       if (!ev.key.toLowerCase().includes("enter")) return;
 
-      if (rowsValue[currentRow].indexOf("") !== -1) return;
+      if (rowsValue[currentPosition[0]].indexOf("") !== -1) return;
 
-      setCurrentRow((activeRow) => Math.min(activeRow + 1, NUMBER_OF_GUESSES));
+      setCurrentPosition((currentPosition) => {
+        const [rowPos, _] = currentPosition;
+
+        const newRowPos = Math.min(rowPos + 1, NUMBER_OF_GUESSES);
+
+        return [newRowPos, 0];
+      });
     };
 
     document.addEventListener("keydown", handleLetterClick);
@@ -83,11 +107,11 @@ export const useInputs = () => {
       document.removeEventListener("keydown", handleArrowClick);
       document.removeEventListener("keydown", handleEnterClick);
     };
-  }, [currentRow, currentGuessIndex]);
+  }, [currentPosition]);
 
-  useLayoutEffect(() => {
-    setCurrentGuessIndex(0);
-  }, [currentRow]);
+  // useLayoutEffect(() => {
+  //   setCurrentPosition(currentPosition);
+  // }, [currentRow]);
 
-  return { rowsValue, currentRow, currentGuessIndex };
+  return { rowsValue, currentPosition };
 };
