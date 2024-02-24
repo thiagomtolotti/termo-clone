@@ -1,7 +1,7 @@
 "use client";
 
 import { GuessRow } from "../GuessRow/GuessRow";
-import { useInputs } from "../../hooks/useInputs";
+import { useInputs } from "../../hooks/useInput/useInputs";
 
 export const GuessArea = () => {
   const { rowsValue, currentPosition } = useInputs();
