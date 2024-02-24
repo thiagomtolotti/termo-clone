@@ -20,7 +20,6 @@ describe("GuessArea component", () => {
     const mockCurrentPosition = [1, 2];
 
     (useInputsModule.useInputs as jest.Mock).mockReturnValue({
-      // rowsValue: Array.from({ length: 6 }, () => Array(5).fill("")),
       rowsValue: mockRowsValue,
       currentPosition: mockCurrentPosition,
     });
@@ -42,11 +41,4 @@ describe("GuessArea component", () => {
       }
     });
   });
-
-  // TODO
-  /*
-    - Verificar se chama as GuessRows com as props certas
-
-    - https://dev.to/peterlidee/mocking-react-components-jest-mocking-react-part-2-2l8j
-  */
 });
