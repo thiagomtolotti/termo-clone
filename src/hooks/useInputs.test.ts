@@ -238,6 +238,26 @@ describe("useInputs hook", () => {
 
         expect(activeRow).toBe(-1);
       });
+
+      it("Should accept the input even if it's with the numpad enter", () => {
+        const numpadEnter = {
+          key: "Enter",
+          code: "NumpadEnter",
+        };
+
+        let c = 0;
+        while (c < 5) {
+          fireEvent.keyDown(document.body, keyDownEvent);
+
+          c++;
+        }
+
+        fireEvent.keyDown(document.body, numpadEnter);
+
+        const activeRow = hookResult.current.currentPosition[0];
+
+        expect(activeRow).toBe(1);
+      });
     });
   });
 });

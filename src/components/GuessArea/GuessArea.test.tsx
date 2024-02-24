@@ -1,52 +1,52 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { GuessArea } from "./GuessArea";
+import { GuessRow } from "../GuessRow/GuessRow";
+import * as useInputsModule from "../../hooks/useInputs";
+
+jest.mock("../../hooks/useInputs");
+
+jest.mock("../GuessRow/GuessRow");
 
 describe("GuessArea component", () => {
   it("Should render correctly", () => {
+    const mockRowsValue = [
+      ["T", "E", "S", "T", "E"],
+      ["T", "E", "S", "T", "A"],
+      ["T", "E", "S", "T", "B"],
+      ["T", "E", "S", "T", "C"],
+      ["T", "E", "S", "T", "D"],
+      ["T", "E", "S", "T", "F"],
+    ];
+    const mockCurrentPosition = [1, 2];
+
+    (useInputsModule.useInputs as jest.Mock).mockReturnValue({
+      // rowsValue: Array.from({ length: 6 }, () => Array(5).fill("")),
+      rowsValue: mockRowsValue,
+      currentPosition: mockCurrentPosition,
+    });
+
     const { container } = render(<GuessArea />);
 
     expect(container.innerHTML).toMatchSnapshot();
+    expect(GuessRow).toHaveBeenCalledTimes(mockRowsValue.length);
+
+    (GuessRow as jest.Mock).mock.calls.forEach((args, index) => {
+      const [props] = args;
+
+      expect(props.value).toBe(mockRowsValue[index]);
+
+      if (index === mockCurrentPosition[0]) {
+        expect(props.activeIndex).toBe(mockCurrentPosition[1]);
+      } else {
+        expect(props.activeIndex).toBe(undefined);
+      }
+    });
   });
 
-  it("The first row should start as the active", () => {
-    render(<GuessArea />);
+  // TODO
+  /*
+    - Verificar se chama as GuessRows com as props certas
 
-    const rows = screen.getAllByRole("guess-row");
-
-    expect(rows[0].classList.contains("active")).toBe(true);
-  });
-
-  it("Should register the guess when 'enter' key is pressed", () => {
-    render(<GuessArea />);
-
-    const rows = screen.getAllByRole("guess-row");
-
-    const enterKeyDownEvent = {
-      key: "Enter",
-      code: "Enter",
-    };
-
-    fireEvent.keyDown(document.body, enterKeyDownEvent);
-
-    expect(rows[1].classList.contains("active")).toBe(true);
-  });
-
-  it("Should register the guess when the numpad enter is pressed", () => {
-    render(<GuessArea />);
-
-    const rows = screen.getAllByRole("guess-row");
-
-    const enterKeyDownEvent = {
-      key: "NumpadEnter",
-      code: "NumpadEnter",
-    };
-
-    fireEvent.keyDown(document.body, enterKeyDownEvent);
-
-    expect(rows[1].classList.contains("active")).toBe(true);
-  });
-
-  // it("Shouldn't register the guess if it's empty", () => {
-  //   expect(true).toBeFalsy();
-  // });
+    - https://dev.to/peterlidee/mocking-react-components-jest-mocking-react-part-2-2l8j
+  */
 });

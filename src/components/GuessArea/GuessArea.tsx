@@ -8,10 +8,11 @@ export const GuessArea = () => {
 
   return rowsValue.map((rowValue, index) => (
     <GuessRow
-      active={currentPosition[0] === index}
       value={rowValue}
+      activeIndex={
+        currentPosition[0] === index ? currentPosition[1] : undefined
+      }
       key={index}
-      activeIndex={currentPosition[1]}
     />
   ));
 };
