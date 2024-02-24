@@ -97,10 +97,12 @@ export const useInputs = () => {
       });
     };
 
-    document.addEventListener("keydown", handleLetterClick);
-    document.addEventListener("keydown", handleBackspaceClick);
-    document.addEventListener("keydown", handleArrowClick);
-    document.addEventListener("keydown", handleEnterClick);
+    if (currentPosition[0] !== -1) {
+      document.addEventListener("keydown", handleLetterClick);
+      document.addEventListener("keydown", handleBackspaceClick);
+      document.addEventListener("keydown", handleArrowClick);
+      document.addEventListener("keydown", handleEnterClick);
+    }
 
     return () => {
       document.removeEventListener("keydown", handleLetterClick);

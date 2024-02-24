@@ -78,6 +78,29 @@ describe("useInputs hook", () => {
       });
     });
 
+    it("Should be ignored if all guesses are filled", () => {
+      const enterEvent = {
+        key: "Enter",
+        code: "Enter",
+      };
+
+      let row = 0;
+
+      while (row < 6) {
+        let guess = 0;
+
+        while (guess < 5) {
+          fireEvent.keyDown(document.body, keyDownEvent);
+          guess++;
+        }
+
+        fireEvent.keyDown(document.body, enterEvent);
+        row++;
+      }
+
+      fireEvent.keyDown(document, keyDownEvent);
+    });
+
     describe("When it's a letter", () => {
       const lowercaseKeyDownEvent = {
         key: "t",
