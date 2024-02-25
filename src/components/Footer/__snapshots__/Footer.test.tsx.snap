@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer component Should render correctly 1`] = `
+<div>
+  <footer
+    class="footer"
+  >
+    Feito com ❤️ para Jessica.
+  </footer>
+</div>
+`;
