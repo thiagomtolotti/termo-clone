@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Mitr } from "next/font/google";
+import "./global.css";
+import "normalize.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Mitr({ subsets: ["latin"], weight: "600" });
 
 export const metadata: Metadata = {
   title: "Termo",
@@ -15,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className}`}>{children}</body>
     </html>
   );
 }

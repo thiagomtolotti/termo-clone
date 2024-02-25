@@ -1,11 +1,11 @@
 .guess {
-	width: 40px;
-	aspect-ratio: 1;
+  width: 72px;
+  aspect-ratio: 1;
 
-	background: red;
-	color: white;
+  /* background: red; */
+  color: white;
 }
 
 .guess.active {
-	background: green;
+  border-bottom-width: 11px !important;
 }

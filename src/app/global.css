@@ -1,0 +1,27 @@
+:root {
+  --brown-10: rgb(49, 42, 44);
+  --brown-30: #4c4347;
+  --brown-40: #615458;
+  --brown-60: #6e5c62;
+
+  --white: #fafaff;
+}
+
+body {
+  background-color: var(--brown-60);
+  color: var(--white);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  text-transform: uppercase;
+}

@@ -7,3 +7,26 @@
 .guessRow.active {
   font-weight: 600;
 }
+
+.guessRow > div {
+  background-color: var(--brown-40);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 0.65em;
+
+  border-radius: 10%;
+}
+
+.guessRow.active > div {
+  background-color: transparent;
+
+  box-sizing: border-box;
+  border: 5px solid var(--brown-30);
+}
+
+.guessRow:not(.active) > div:not(:empty) {
+  background-color: var(--brown-10);
+}
