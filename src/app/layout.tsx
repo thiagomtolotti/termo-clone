@@ -3,7 +3,7 @@ import { Mitr } from "next/font/google";
 import "./global.css";
 import "normalize.css";
 
-const inter = Mitr({ subsets: ["latin"], weight: "600" });
+const mitr = Mitr({ subsets: ["latin"], weight: ["600", "400"] });
 
 export const metadata: Metadata = {
   title: "Termo",
@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={`${inter.className}`}>{children}</body>
+      <body className={`${mitr.className}`}>{children}</body>
     </html>
   );
 }
