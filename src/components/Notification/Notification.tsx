@@ -1,5 +1,22 @@
+"use client";
+import { useContext } from "react";
 import styles from "./Notification.module.css";
+import { ApplicationContext } from "../../context/ApplicationContext";
 
 export const Notification = () => {
-  return <div className={styles.notification}>Notificação de teste</div>;
+  const { Notifications } = useContext(ApplicationContext);
+
+  // useEffect(() => {}, [Notifications.currentNotification]);
+
+  return (
+    Notifications?.currentNotification && (
+      <div
+        className={styles.notification}
+        role="notification"
+        key={Notifications.currentNotification.timestamp}
+      >
+        {Notifications.currentNotification.message}
+      </div>
+    )
+  );
 };

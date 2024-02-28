@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render correctly 1`] = `
+<div>
+  <div
+    class="notification"
+    role="notification"
+  >
+    Teste
+  </div>
+</div>
+`;

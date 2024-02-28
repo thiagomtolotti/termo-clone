@@ -2,11 +2,11 @@
 import { useNotification } from "@/hooks/useNotification/useNotification";
 import { createContext } from "react";
 
-interface ApplicationContext {
+export interface IApplicationContext {
   Notifications: useNotification;
 }
 
-export const ApplicationContext = createContext({} as ApplicationContext);
+export const ApplicationContext = createContext({} as IApplicationContext);
 
 export const ApplicationProvider = ({
   children,
