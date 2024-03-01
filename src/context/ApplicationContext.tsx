@@ -1,5 +1,6 @@
 "use client";
-import { createContext, useState } from "react";
+import { getWordOfTheDay } from "@/lib/actions";
+import { createContext, useEffect, useState } from "react";
 
 interface Notification {
   message: string;

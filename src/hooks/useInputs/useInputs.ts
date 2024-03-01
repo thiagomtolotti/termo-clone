@@ -1,4 +1,6 @@
+import { isGuessAWord } from "@/lib/actions";
 import { useEffect, useLayoutEffect, useState } from "react";
+import { useNotification } from "../useNotification/useNotification";
 
 const NUMBER_OF_GUESSES = 6;
 const WORD_SIZE = 5;
@@ -9,6 +11,7 @@ export const useInputs = () => {
     Array.from({ length: NUMBER_OF_GUESSES }, () => Array(WORD_SIZE).fill(""))
   );
   const [currentPosition, setCurrentPosition] = useState<number[]>([0, 0]);
+  const { renderNotification, clearNotification } = useNotification();
 
   useEffect(() => {
     const handleLetterClick = (ev: KeyboardEvent) => {
@@ -83,10 +86,24 @@ export const useInputs = () => {
       });
     };
 
-    const handleEnterClick = (ev: KeyboardEvent) => {
+    const handleEnterClick = async (ev: KeyboardEvent) => {
       if (!ev.key.toLowerCase().includes("enter")) return;
 
-      if (rowsValue[currentPosition[0]].indexOf("") !== -1) return;
+      const currentRowValue = rowsValue[currentPosition[0]];
+
+      if (currentRowValue.indexOf("") !== -1) return;
+
+      const isWord = await isGuessAWord(
+        currentRowValue.join().replaceAll(",", "")
+      );
+
+      if (!isWord) {
+        renderNotification("Ops! Palavra inválida");
+
+        return;
+      }
+
+      clearNotification();
 
       setCurrentPosition((currentPosition) => {
         const [rowPos, _] = currentPosition;
