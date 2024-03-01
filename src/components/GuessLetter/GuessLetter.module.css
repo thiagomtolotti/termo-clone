@@ -4,6 +4,7 @@
 
   /* background: red; */
   color: white;
+  font-weight: 600;
 }
 
 .guess.active {
