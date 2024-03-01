@@ -1,31 +1,27 @@
-import { useState } from "react";
-
-interface Notification {
-  message: string;
-  timestamp: number;
-}
+import { ApplicationContext } from "@/context/ApplicationContext";
+import { useContext } from "react";
 
 export interface useNotification {
   renderNotification: (message: string) => void;
   clearNotification: () => void;
-  currentNotification: Notification;
 }
 
 export const useNotification = () => {
-  const [currentNotification, setCurrentNotification] =
-    useState<Notification | null>();
+  const { Notifications } = useContext(ApplicationContext);
 
   const renderNotification = (message: string) => {
-    setCurrentNotification({ message: message, timestamp: Date.now() });
+    Notifications.setCurrentNotification({
+      message: message,
+      timestamp: Date.now(),
+    });
   };
 
   const clearNotification = () => {
-    setCurrentNotification(null);
+    Notifications.setCurrentNotification(null);
   };
 
   return {
     renderNotification,
     clearNotification,
-    currentNotification,
   } as useNotification;
 };

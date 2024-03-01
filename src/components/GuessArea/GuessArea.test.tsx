@@ -1,9 +1,9 @@
 import { render } from "@testing-library/react";
 import { GuessArea } from "./GuessArea";
 import { GuessRow } from "../GuessRow/GuessRow";
-import * as useInputsModule from "../../hooks/useInputs";
+import * as useInputsModule from "../../hooks/useInputs/useInputs";
 
-jest.mock("../../hooks/useInputs");
+jest.mock("../../hooks/useInputs/useInputs");
 
 jest.mock("../GuessRow/GuessRow");
 

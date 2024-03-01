@@ -1,9 +1,18 @@
 "use client";
-import { useNotification } from "@/hooks/useNotification/useNotification";
-import { createContext } from "react";
+import { createContext, useState } from "react";
+
+interface Notification {
+  message: string;
+  timestamp: number;
+}
 
 export interface IApplicationContext {
-  Notifications: useNotification;
+  Notifications: {
+    currentNotification: Notification | null;
+    setCurrentNotification: React.Dispatch<
+      React.SetStateAction<Notification | null>
+    >;
+  };
 }
 
 export const ApplicationContext = createContext({} as IApplicationContext);
@@ -13,10 +22,13 @@ export const ApplicationProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const Notifications = useNotification();
+  const [currentNotification, setCurrentNotification] =
+    useState<Notification | null>(null);
 
   return (
-    <ApplicationContext.Provider value={{ Notifications }}>
+    <ApplicationContext.Provider
+      value={{ Notifications: { currentNotification, setCurrentNotification } }}
+    >
       {children}
     </ApplicationContext.Provider>
   );

@@ -1,6 +1,13 @@
 import { fireEvent, renderHook } from "@testing-library/react";
 import { useInputs } from "./useInputs";
 
+jest.mock("../useNotification/useNotification", () => ({
+  useNotification: jest.fn().mockReturnValue({
+    renderNotification: jest.fn(),
+    clearNotification: jest.fn(),
+  }),
+}));
+
 describe("useInputs hook", () => {
   let hookResult: {
     current: {
