@@ -14,6 +14,7 @@ export interface IApplicationContext {
       React.SetStateAction<Notification | null>
     >;
   };
+  correctWord: string | undefined;
 }
 
 export const ApplicationContext = createContext({} as IApplicationContext);
@@ -26,9 +27,22 @@ export const ApplicationProvider = ({
   const [currentNotification, setCurrentNotification] =
     useState<Notification | null>(null);
 
+  const [correctWord, setCorrectWord] = useState<string>();
+
+  useEffect(() => {
+    getWordOfTheDay().then((correctWord) => setCorrectWord(correctWord));
+  }, []);
+
+  useEffect(() => {
+    console.log(correctWord);
+  }, [correctWord]);
+
   return (
     <ApplicationContext.Provider
-      value={{ Notifications: { currentNotification, setCurrentNotification } }}
+      value={{
+        Notifications: { currentNotification, setCurrentNotification },
+        correctWord,
+      }}
     >
       {children}
     </ApplicationContext.Provider>

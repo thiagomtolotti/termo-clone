@@ -10,3 +10,11 @@
 .guess.active {
   border-bottom-width: 11px !important;
 }
+
+.guess.correct {
+  background-color: var(--green) !important;
+}
+
+.guess.misplaced {
+  background-color: var(--yellow) !important;
+}

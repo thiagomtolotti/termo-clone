@@ -1,15 +1,22 @@
 import styles from "./GuessLetter.module.css";
 
 interface GuessLetterProps {
-  active?: boolean;
   children: React.ReactNode;
+  active?: boolean;
+  isCorrectOrMisplaced?: "correct" | "misplaced";
 }
 
-export const GuessLetter = ({ active = false, children }: GuessLetterProps) => {
+export const GuessLetter = ({
+  active = false,
+  children,
+  isCorrectOrMisplaced,
+}: GuessLetterProps) => {
   return (
     <div
       role="guess"
-      className={`${styles.guess} ${active ? styles.active : ""}`}
+      className={`${styles.guess} ${active ? styles.active : ""} ${
+        isCorrectOrMisplaced ? styles[isCorrectOrMisplaced] : ""
+      }`}
     >
       {children}
     </div>
