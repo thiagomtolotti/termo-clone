@@ -1,17 +1,19 @@
 import { isGuessAWord } from "@/lib/actions";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { useNotification } from "../useNotification/useNotification";
+import { ApplicationContext } from "@/context/ApplicationContext";
 
 const NUMBER_OF_GUESSES = 6;
 const WORD_SIZE = 5;
 const letterRegex = /^[a-zA-Z]$/;
 
 export const useInputs = () => {
-  const [rowsValue, setRowsValue] = useState(
+  const [rowsValue, setRowsValue] = useState<string[][]>(
     Array.from({ length: NUMBER_OF_GUESSES }, () => Array(WORD_SIZE).fill(""))
   );
   const [currentPosition, setCurrentPosition] = useState<number[]>([0, 0]);
   const { renderNotification, clearNotification } = useNotification();
+  const { correctWord } = useContext(ApplicationContext);
 
   useEffect(() => {
     const handleLetterClick = (ev: KeyboardEvent) => {
@@ -103,6 +105,14 @@ export const useInputs = () => {
         return;
       }
 
+      if (currentRowValue.join("").replaceAll(",", "") === correctWord) {
+        renderNotification("Parabéns!");
+
+        setCurrentPosition([-1, -1]);
+
+        return;
+      }
+
       clearNotification();
 
       setCurrentPosition((currentPosition) => {
@@ -127,7 +137,7 @@ export const useInputs = () => {
       document.removeEventListener("keydown", handleArrowClick);
       document.removeEventListener("keydown", handleEnterClick);
     };
-  }, [currentPosition]);
+  }, [currentPosition, correctWord]);
 
   useLayoutEffect(() => {
     const activeGuess = currentPosition[1];
