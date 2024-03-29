@@ -113,6 +113,14 @@ export const useInputs = () => {
         return;
       }
 
+      const [currentTry, _] = currentPosition;
+      if (currentTry === NUMBER_OF_GUESSES - 1) {
+        renderNotification("Mais sorte da próxima vez!");
+        setCurrentPosition([-1, -1]);
+
+        return;
+      }
+
       clearNotification();
 
       setCurrentPosition((currentPosition) => {
