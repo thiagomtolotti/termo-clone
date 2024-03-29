@@ -6,17 +6,17 @@ import { ApplicationContext } from "../../context/ApplicationContext";
 export const Notification = () => {
   const { Notifications } = useContext(ApplicationContext);
 
-  // useEffect(() => {}, [Notifications.currentNotification]);
-
   return (
-    Notifications?.currentNotification && (
-      <div
-        className={styles.notification}
-        role="notification"
-        key={Notifications.currentNotification.timestamp}
-      >
-        {Notifications.currentNotification.message}
-      </div>
-    )
+    <div className={styles.container}>
+      {Notifications?.currentNotification && (
+        <div
+          className={styles.notification}
+          role="notification"
+          key={Notifications.currentNotification.timestamp}
+        >
+          {Notifications.currentNotification.message}
+        </div>
+      )}
+    </div>
   );
 };
