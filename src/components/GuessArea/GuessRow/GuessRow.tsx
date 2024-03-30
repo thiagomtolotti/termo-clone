@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect } from "react";
-import { GuessLetter } from "../GuessLetter/GuessLetter";
+import { GuessLetter } from "./GuessLetter/GuessLetter";
 import styles from "./GuessRow.module.css";
 import { ApplicationContext } from "@/context/ApplicationContext";
 

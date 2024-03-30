@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { GuessRow } from "./GuessRow";
-import { GuessLetter } from "../GuessLetter/GuessLetter";
+import { GuessLetter } from "./GuessLetter/GuessLetter";
 
 jest.mock("../GuessLetter/GuessLetter");
 

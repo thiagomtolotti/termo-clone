@@ -1,6 +1,6 @@
 "use client";
 
-import { GuessRow } from "../GuessRow/GuessRow";
+import { GuessRow } from "./GuessRow/GuessRow";
 import { useInputs } from "../../hooks/useInputs/useInputs";
 import styles from "./GuessArea.module.css";
 
