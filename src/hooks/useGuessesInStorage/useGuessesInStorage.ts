@@ -1,31 +1,44 @@
+import { ApplicationContext } from "@/context/ApplicationContext";
+import { useContext, useEffect, useState } from "react";
+
 export const useGuessesInStorage = () => {
-  function getGuessesInStorage() {
+  const [initialPosition, setInitialPosition] = useState(0);
+  const { correctWord } = useContext(ApplicationContext);
+
+  const getGuessesInStorage = () => {
     const guessesInStorage = localStorage.getItem("guesses");
 
     if (!guessesInStorage) return null;
 
     return JSON.parse(guessesInStorage) as string[][];
-  }
+  };
 
-  function getInitialPosition() {
-    if (localStorage.getItem("isCorrect")) return -1;
+  useEffect(() => {
+    const getInitialPosition = () => {
+      const guessesInStorage = getGuessesInStorage();
 
-    let index = 0;
+      if (!guessesInStorage) return 0;
 
-    const guessesInStorage = getGuessesInStorage();
-    if (!guessesInStorage) return 0;
+      const isOneGuessCorrect = guessesInStorage.find(
+        (guess) => guess.join("").replaceAll(",", "") === correctWord
+      );
+      if (isOneGuessCorrect) return -1;
 
-    guessesInStorage.map((guess) => {
-      if (guess.indexOf("") !== -1) return;
+      let indexOfCurrentGuess = 0;
+      guessesInStorage.map((guess) => {
+        if (guess.indexOf("") !== -1) return;
 
-      index++;
-    });
+        indexOfCurrentGuess++;
+      });
 
-    return index;
-  }
+      return indexOfCurrentGuess;
+    };
+
+    setInitialPosition(getInitialPosition());
+  }, [correctWord]);
 
   return {
     guessesInStorage: getGuessesInStorage(),
-    positionInStorage: getInitialPosition(),
+    positionInStorage: initialPosition,
   };
 };

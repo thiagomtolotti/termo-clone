@@ -15,6 +15,10 @@ const emptyRowsValue = Array.from({ length: NUMBER_OF_GUESSES }, () =>
 export const useInputs = () => {
   const { guessesInStorage, positionInStorage } = useGuessesInStorage();
 
+  useEffect(() => {
+    setCurrentPosition([positionInStorage, 0]);
+  }, [positionInStorage]);
+
   const [rowsValue, setRowsValue] = useState<string[][]>(
     guessesInStorage ?? emptyRowsValue
   );
@@ -120,7 +124,6 @@ export const useInputs = () => {
         renderNotification("Parabéns!");
 
         localStorage.setItem("guesses", JSON.stringify(rowsValue));
-        localStorage.setItem("isCorrect", "true");
         setCurrentPosition([-1, -1]);
 
         return;
@@ -182,27 +185,6 @@ export const useInputs = () => {
       setCurrentPosition([-1, 0]);
     }
   }, [currentPosition]);
-  //   const guessesInStorage: string | null = localStorage.getItem("guesses");
-
-  //   if (!guessesInStorage) return;
-
-  //   const parsedGuesses: string[][] = JSON.parse(guessesInStorage);
-
-  //   setRowsValue(parsedGuesses);
-
-  //   if (localStorage.getItem("isCorrect")) {
-  //     setCurrentPosition([-1, 0]);
-  //     return;
-  //   }
-
-  //   let currentIndex = 0;
-  //   parsedGuesses.map((guess) => {
-  //     if (guess.indexOf("") !== -1) return;
-
-  //     currentIndex++;
-  //   });
-  //   setCurrentPosition([currentIndex, 0]);
-  // }, []);
 
   return { rowsValue, currentPosition };
 };
