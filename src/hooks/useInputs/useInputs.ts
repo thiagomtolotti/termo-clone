@@ -25,6 +25,10 @@ export const useInputs = () => {
     setCurrentPosition([positionInStorage, 0]);
   }, [positionInStorage]);
 
+  useEffect(() => {
+    setRowsValue(guessesInStorage ?? emptyRowsValue);
+  }, [guessesInStorage]);
+
   const [rowsValue, setRowsValue] = useState<string[][]>(
     guessesInStorage ?? emptyRowsValue
   );

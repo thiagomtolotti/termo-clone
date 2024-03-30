@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 
 export const useGuessesInStorage = () => {
   const [initialPosition, setInitialPosition] = useState(0);
+  const [guessesInStorage, setGuessesInStorage] = useState<string[][] | null>();
   const { correctWord } = useContext(ApplicationContext);
 
   const getGuessesInStorage = () => {
@@ -12,6 +13,10 @@ export const useGuessesInStorage = () => {
 
     return JSON.parse(guessesInStorage) as string[][];
   };
+
+  useEffect(() => {
+    setGuessesInStorage(getGuessesInStorage());
+  }, []);
 
   useEffect(() => {
     const getInitialPosition = () => {
@@ -38,7 +43,7 @@ export const useGuessesInStorage = () => {
   }, [correctWord]);
 
   return {
-    guessesInStorage: getGuessesInStorage(),
+    guessesInStorage,
     positionInStorage: initialPosition,
   };
 };

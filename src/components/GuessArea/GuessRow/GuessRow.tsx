@@ -6,7 +6,7 @@ import { ApplicationContext } from "@/context/ApplicationContext";
 interface GuessRowProps {
   value: string[];
   activeIndex?: number;
-  changeHorizontalPosition(newPosition: number): void;
+  changeHorizontalPosition: (newPosition: number) => void;
 }
 
 export const GuessRow = ({
