@@ -2,16 +2,26 @@ import { isGuessAWord } from "@/lib/actions";
 import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { useNotification } from "../useNotification/useNotification";
 import { ApplicationContext } from "@/context/ApplicationContext";
+import { useGuessesInStorage } from "../useGuessesInStorage/useGuessesInStorage";
 
 const NUMBER_OF_GUESSES = 6;
 const WORD_SIZE = 5;
 const letterRegex = /^[a-zA-Z]$/;
 
+const emptyRowsValue = Array.from({ length: NUMBER_OF_GUESSES }, () =>
+  Array(WORD_SIZE).fill("")
+);
+
 export const useInputs = () => {
+  const { guessesInStorage, positionInStorage } = useGuessesInStorage();
+
   const [rowsValue, setRowsValue] = useState<string[][]>(
-    Array.from({ length: NUMBER_OF_GUESSES }, () => Array(WORD_SIZE).fill(""))
+    guessesInStorage ?? emptyRowsValue
   );
-  const [currentPosition, setCurrentPosition] = useState<number[]>([0, 0]);
+  const [currentPosition, setCurrentPosition] = useState<number[]>([
+    positionInStorage,
+    0,
+  ]);
   const { renderNotification, clearNotification } = useNotification();
   const { correctWord } = useContext(ApplicationContext);
 
@@ -91,6 +101,7 @@ export const useInputs = () => {
     const handleEnterClick = async (ev: KeyboardEvent) => {
       if (!ev.key.toLowerCase().includes("enter")) return;
 
+      clearNotification();
       const currentRowValue = rowsValue[currentPosition[0]];
 
       if (currentRowValue.indexOf("") !== -1) return;
@@ -108,6 +119,8 @@ export const useInputs = () => {
       if (currentRowValue.join("").replaceAll(",", "") === correctWord) {
         renderNotification("Parabéns!");
 
+        localStorage.setItem("guesses", JSON.stringify(rowsValue));
+        localStorage.setItem("isCorrect", "true");
         setCurrentPosition([-1, -1]);
 
         return;
@@ -116,12 +129,7 @@ export const useInputs = () => {
       const [currentTry, _] = currentPosition;
       if (currentTry === NUMBER_OF_GUESSES - 1) {
         renderNotification("Mais sorte da próxima vez!");
-        setCurrentPosition([-1, -1]);
-
-        return;
       }
-
-      clearNotification();
 
       setCurrentPosition((currentPosition) => {
         const [rowPos, _] = currentPosition;
@@ -130,6 +138,7 @@ export const useInputs = () => {
 
         return [newRowPos, 0];
       });
+      localStorage.setItem("guesses", JSON.stringify(rowsValue));
     };
 
     if (currentPosition[0] !== -1) {
@@ -173,10 +182,27 @@ export const useInputs = () => {
       setCurrentPosition([-1, 0]);
     }
   }, [currentPosition]);
+  //   const guessesInStorage: string | null = localStorage.getItem("guesses");
 
-  // useLayoutEffect(() => {
-  //   setCurrentPosition(currentPosition);
-  // }, [currentRow]);
+  //   if (!guessesInStorage) return;
+
+  //   const parsedGuesses: string[][] = JSON.parse(guessesInStorage);
+
+  //   setRowsValue(parsedGuesses);
+
+  //   if (localStorage.getItem("isCorrect")) {
+  //     setCurrentPosition([-1, 0]);
+  //     return;
+  //   }
+
+  //   let currentIndex = 0;
+  //   parsedGuesses.map((guess) => {
+  //     if (guess.indexOf("") !== -1) return;
+
+  //     currentIndex++;
+  //   });
+  //   setCurrentPosition([currentIndex, 0]);
+  // }, []);
 
   return { rowsValue, currentPosition };
 };

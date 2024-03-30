@@ -31,5 +31,8 @@ export async function getWordOfTheDay() {
 
   const randomWord = allWords[wordIndex];
 
-  return randomWord;
+  return {
+    word: randomWord,
+    date: currentDate,
+  };
 }

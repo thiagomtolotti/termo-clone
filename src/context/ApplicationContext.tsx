@@ -30,7 +30,15 @@ export const ApplicationProvider = ({
   const [correctWord, setCorrectWord] = useState<string>();
 
   useEffect(() => {
-    getWordOfTheDay().then((correctWord) => setCorrectWord(correctWord));
+    getWordOfTheDay().then((correctWordData) => {
+      setCorrectWord(correctWordData.word);
+
+      if (localStorage.getItem("date") === String(correctWordData.date)) return;
+
+      localStorage.clear();
+      localStorage.setItem("date", String(correctWordData.date));
+      localStorage.setItem("guesses", "");
+    });
   }, []);
 
   useEffect(() => {
