@@ -1,5 +1,11 @@
 import { isGuessAWord } from "@/lib/actions";
-import { useContext, useEffect, useLayoutEffect, useState } from "react";
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { useNotification } from "../useNotification/useNotification";
 import { ApplicationContext } from "@/context/ApplicationContext";
 import { useGuessesInStorage } from "../useGuessesInStorage/useGuessesInStorage";
@@ -186,5 +192,13 @@ export const useInputs = () => {
     }
   }, [currentPosition]);
 
-  return { rowsValue, currentPosition };
+  const changeHorizontalPosition = useCallback(
+    (newPosition: number) => {
+      const [rowPos, _] = currentPosition;
+      setCurrentPosition([rowPos, newPosition]);
+    },
+    [currentPosition]
+  );
+
+  return { rowsValue, currentPosition, changeHorizontalPosition };
 };

@@ -5,7 +5,7 @@ import { useInputs } from "../../hooks/useInputs/useInputs";
 import styles from "./GuessArea.module.css";
 
 export const GuessArea = () => {
-  const { rowsValue, currentPosition } = useInputs();
+  const { rowsValue, currentPosition, changeHorizontalPosition } = useInputs();
 
   return (
     <div className={styles.guessArea}>
@@ -16,6 +16,7 @@ export const GuessArea = () => {
             currentPosition[0] === index ? currentPosition[1] : undefined
           }
           key={index}
+          changeHorizontalPosition={changeHorizontalPosition}
         />
       ))}
     </div>

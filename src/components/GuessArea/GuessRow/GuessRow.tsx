@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect } from "react";
+import { useCallback, useContext } from "react";
 import { GuessLetter } from "./GuessLetter/GuessLetter";
 import styles from "./GuessRow.module.css";
 import { ApplicationContext } from "@/context/ApplicationContext";
@@ -6,9 +6,14 @@ import { ApplicationContext } from "@/context/ApplicationContext";
 interface GuessRowProps {
   value: string[];
   activeIndex?: number;
+  changeHorizontalPosition(newPosition: number): void;
 }
 
-export const GuessRow = ({ activeIndex, value }: GuessRowProps) => {
+export const GuessRow = ({
+  activeIndex,
+  value,
+  changeHorizontalPosition,
+}: GuessRowProps) => {
   const { correctWord } = useContext(ApplicationContext);
 
   const setIsCorrectOrMisplaced = useCallback(
@@ -49,6 +54,11 @@ export const GuessRow = ({ activeIndex, value }: GuessRowProps) => {
         <GuessLetter
           active={activeIndex === index}
           isCorrectOrMisplaced={setIsCorrectOrMisplaced(index)}
+          onClick={() => {
+            if (activeIndex === undefined) return;
+
+            changeHorizontalPosition(index);
+          }}
           key={index}
         >
           {value}

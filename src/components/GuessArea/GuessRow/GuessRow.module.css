@@ -25,6 +25,7 @@
 
   box-sizing: border-box;
   border: 5px solid var(--brown-30);
+  cursor: pointer;
 }
 
 .guessRow:not(.active) > div:not(:empty) {
