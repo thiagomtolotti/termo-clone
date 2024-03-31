@@ -11,9 +11,7 @@ export async function isGuessAWord(guess: string) {
 }
 
 const getAllWords = async () => {
-  const __dirname = dirname(fileURLToPath(import.meta.url));
-
-  const filePath = path.resolve(__dirname + "/palavras.txt");
+  const filePath = path.resolve(process.cwd() + "/public/palavras.txt");
 
   const allWords = await fs.promises.readFile(filePath, "utf-8");
 
