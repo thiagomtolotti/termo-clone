@@ -118,7 +118,11 @@ export const useInputs = () => {
       clearNotification();
       const currentRowValue = rowsValue[currentPosition[0]];
 
-      if (currentRowValue.indexOf("") !== -1) return;
+      if (currentRowValue.indexOf("") !== -1) {
+        renderNotification("Só palavras com 5 letras");
+
+        return;
+      }
 
       const isWord = await isGuessAWord(
         currentRowValue.join().replaceAll(",", "")
