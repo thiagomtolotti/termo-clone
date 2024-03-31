@@ -1,9 +1,9 @@
 .guess {
-  width: 72px;
+  width: clamp(48px, 12vw, 72px);
   aspect-ratio: 1;
 
-  /* background: red; */
   color: white;
+
   font-weight: 600;
 }
 
