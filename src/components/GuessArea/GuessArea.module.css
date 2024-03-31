@@ -1,17 +1,5 @@
-.guesses {
-  display: grid;
-  grid-auto-columns: 1fr;
-
-  gap: 8px;
-
-  width: 100%;
-  max-width: 380px;
+.guessArea {
+  font-size: 4em;
 
   margin: auto;
 }
-/* 
-@media screen and (max-width: 468px) {
-  .guesses {
-    max-width: 240px;
-  }
-} */

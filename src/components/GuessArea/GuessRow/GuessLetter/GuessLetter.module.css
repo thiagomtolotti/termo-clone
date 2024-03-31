@@ -1,0 +1,20 @@
+.guess {
+  width: clamp(48px, 12vw, 72px);
+  aspect-ratio: 1;
+
+  color: white;
+
+  font-weight: 600;
+}
+
+.guess.active {
+  border-bottom-width: 11px !important;
+}
+
+.guess.correct {
+  background-color: var(--green) !important;
+}
+
+.guess.misplaced {
+  background-color: var(--yellow) !important;
+}

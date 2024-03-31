@@ -1,44 +1,27 @@
-import { useContext, useRef } from "react";
+"use client";
+import Image from "next/image";
 import styles from "./Key.module.css";
-import { UsedKeysContext } from "../../../contexts/UsedKeysContext";
-
-import backspaceImg from "../../../assets/backspace.svg";
-
 interface KeyProps {
   children: string;
 }
 
 export const Key = ({ children }: KeyProps) => {
-  const keyRef = useRef<HTMLDivElement>(null);
-  const { correctLetters, misplacedLetters, wrongLetters } =
-    useContext(UsedKeysContext);
-
-  const event = new KeyboardEvent("keydown", {
-    key: children,
-    code: children,
-  });
+  const handleClick = () => {
+    document.dispatchEvent(
+      new KeyboardEvent("keydown", { key: String(children) })
+    );
+  };
 
   return (
     <div
-      className={`${styles.key} ${
-        correctLetters.indexOf(children.toUpperCase()) !== -1
-          ? styles.correct
-          : misplacedLetters.indexOf(children.toUpperCase()) !== -1
-          ? styles.misplaced
-          : wrongLetters.indexOf(children.toUpperCase()) !== -1
-          ? styles.wrong
-          : ""
-      }`}
-      ref={keyRef}
-      onClick={() => {
-        document.dispatchEvent(event);
-      }}
-      id={children === "Enter" ? styles.enter : ""}
+      className={styles.key}
+      id={`${styles[String(children).toLowerCase()] ?? ""}`}
+      onClick={handleClick}
     >
-      {children !== "Backspace" ? (
-        children
+      {children === "Backspace" ? (
+        <Image src="/img/backspace_icon.svg" width={24} height={24} alt="" />
       ) : (
-        <img src={backspaceImg} width={28} />
+        children
       )}
     </div>
   );

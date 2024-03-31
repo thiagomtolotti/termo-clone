@@ -1,40 +1,33 @@
 .key {
-  background-color: var(--main30);
-  text-transform: uppercase;
-
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+
+  background-color: var(--brown-30);
 
   grid-column: span 3;
 
-  border-radius: 4px;
+  border-radius: 5px;
 
-  font-size: 1.4em;
-
-  user-select: none;
-  cursor: pointer;
   font-weight: 600;
+  font-size: 1.25em;
+
+  cursor: pointer;
+  user-select: none;
 }
 
-.key.correct {
-  background-color: var(--green40);
+#a {
+  grid-column: 2 / span 3;
 }
 
-.key.misplaced {
-  background-color: var(--yellow60);
-}
-
-.key.wrong {
-  background-color: var(--main15);
-  color: var(--main40);
+#z {
+  grid-column: 3 / span 3;
 }
 
 #enter {
   grid-column: 25 / span 8;
 }
-@media screen and (max-width: 468px) {
-  .key {
-    font-size: 1em;
-  }
+
+#backspace {
+  grid-column: 30 / span 3;
 }

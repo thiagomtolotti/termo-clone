@@ -1,24 +1,17 @@
 .keyboard {
   display: grid;
-  grid-template-columns: repeat(32, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: 6px;
+  grid-template-columns: repeat(32, 1fr);
 
-  height: var(--keyboard-height);
+  width: calc(100% - 1em);
+  height: min(100em/2.15, 25vh);
 
-  width: 100%;
-  max-width: 620px;
   margin: 0 auto;
-}
+  padding: 0 0.5em 0.3em 0.5em;
 
-.keyboard > *:nth-child(11) {
-  grid-column: 2 / span 3;
-}
+  gap: 0.25em;
 
-.keyboard > *:nth-child(20) {
-  grid-column: 30 / span 3;
-}
+  text-transform: uppercase;
 
-.keyboard > *:nth-child(21) {
-  grid-column: 3 / span 3;
+  max-width: 480px;
 }

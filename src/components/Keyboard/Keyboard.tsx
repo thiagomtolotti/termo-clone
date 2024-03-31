@@ -1,43 +1,16 @@
 import styles from "./Keyboard.module.css";
+import { Key } from "./Key/Key";
 
-import Key from "./Key";
-
-const KEYS = [
-  "q",
-  "w",
-  "e",
-  "r",
-  "t",
-  "y",
-  "u",
-  "i",
-  "o",
-  "p",
-  "a",
-  "s",
-  "d",
-  "f",
-  "g",
-  "h",
-  "j",
-  "k",
-  "l",
-  "Backspace",
-  "z",
-  "x",
-  "c",
-  "v",
-  "b",
-  "n",
-  "m",
-  "Enter",
+// prettier-ignore
+const LETTER_POSITIONS = [
+  "Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Backspace","Z","X","C","V","B","N","M", "Enter",
 ];
 
 export const Keyboard = () => {
   return (
     <div className={styles.keyboard}>
-      {KEYS.map((key) => (
-        <Key key={key}>{key}</Key>
+      {LETTER_POSITIONS.map((letter) => (
+        <Key>{letter}</Key>
       ))}
     </div>
   );
