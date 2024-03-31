@@ -1,8 +1,7 @@
 "use server";
 import fs from "fs";
-import path, { dirname } from "path";
+import path from "path";
 import seedrandom from "seedrandom";
-import { fileURLToPath } from "url";
 
 export async function isGuessAWord(guess: string) {
   const allWords = await getAllWords();
@@ -11,7 +10,7 @@ export async function isGuessAWord(guess: string) {
 }
 
 const getAllWords = async () => {
-  const filePath = path.resolve(process.cwd() + "/public/palavras.txt");
+  const filePath = path.join(process.cwd(), "public/palavras.txt");
 
   const allWords = await fs.promises.readFile(filePath, "utf-8");
 
