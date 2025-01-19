@@ -5,6 +5,7 @@
 
   width: calc(100% - 1em);
   height: min(100em/2.15, 25vh);
+  flex-shrink: 0;
 
   margin: 0 auto;
   padding: 0 0.5em 0.3em 0.5em;
