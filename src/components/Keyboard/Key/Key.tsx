@@ -14,7 +14,7 @@ export const Key = ({ children }: KeyProps) => {
 
   return (
     <div
-      className={`flex justify-center items-center bg-brown-300 col-span-3 rounded-lg font-bold text-xl py-3`}
+      className={`flex justify-center items-center bg-brown-300 col-span-3 rounded-lg font-bold text-xl py-2`}
       id={`${styles[String(children).toLowerCase()] ?? ""}`}
       onClick={handleClick}
     >

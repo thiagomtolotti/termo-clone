@@ -8,11 +8,11 @@ export const Notification = () => {
 
   return (
     <div
-      className={`w-full h-14 flex-shrink-0 flex items-center justify-center`}
+      className={`w-full h-12 flex-shrink-0 flex items-center justify-center`}
     >
       {Notifications?.currentNotification && (
         <div
-          className={`bg-blue py-3 px-9 rounded-xl text-xl notification `}
+          className={`bg-blue py-2 px-9 rounded-xl text-lg notification `}
           role="notification"
           key={Notifications.currentNotification.timestamp}
         >
