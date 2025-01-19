@@ -10,10 +10,15 @@ export async function isGuessAWord(guess: string) {
 }
 
 const getAllWords = async () => {
-  const filePath = path.join(process.cwd(), "public/palavras.txt");
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL || ""}/palavras.txt`
+  );
 
-  const allWords = await fs.promises.readFile(filePath, "utf-8");
+  if (!res.ok) {
+    throw new Error("Failed to fetch palavras.txt");
+  }
 
+  const allWords = await res.text();
   return allWords.replaceAll("\r", "").toUpperCase().split("\n");
 };
 
