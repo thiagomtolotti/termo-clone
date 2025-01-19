@@ -19,7 +19,7 @@ export const GuessLetter = ({
     <div
       role="guess"
       className={clsx(
-        "w-16 flex items-center justify-center font-bold aspect-square rounded-md text-5xl",
+        "w-full flex items-center justify-center font-bold aspect-square rounded-md text-4xl",
         isRowActive &&
           "bg-transparent border-4 border-brown-300 cursor-pointer",
         !isRowActive && Boolean(children) ? "bg-brown-100" : "bg-brown-400",

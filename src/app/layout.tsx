@@ -21,7 +21,7 @@ export default function RootLayout({
       <body
         className={clsx(
           `${mitr.className}`,
-          "bg-brown-600 text-gray-100 flex flex-col h-dvh items-center justify-center gap-4"
+          "bg-brown-600 text-gray-100 flex flex-col h-dvh items-center justify-center gap-4 max-w-screen-sm m-auto"
         )}
       >
         {children}

@@ -12,8 +12,6 @@ export default function Home() {
 
       <Notification />
 
-      {/* <div className="w-full bg-green h-full" /> */}
-
       <GuessArea />
       <Keyboard />
 

@@ -7,9 +7,7 @@ const LETTER_POSITIONS = [
 
 export const Keyboard = () => {
   return (
-    <div
-      className={`grid grid-rows-3 w-full px-4 h-1/4 shrink-0 gap-1 uppercase`}
-    >
+    <div className={`grid grid-rows-3 w-full px-4 shrink-0 gap-1 uppercase`}>
       {LETTER_POSITIONS.map((letter) => (
         <Key>{letter}</Key>
       ))}

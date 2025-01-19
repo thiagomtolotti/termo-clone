@@ -43,7 +43,7 @@ export const GuessRow = ({
   );
 
   return (
-    <div className="flex gap-1 m-1" role="guess-row">
+    <div className="grid grid-cols-5 gap-1" role="guess-row">
       {value.map((value, index) => (
         <GuessLetter
           isRowActive={activeIndex !== undefined}
