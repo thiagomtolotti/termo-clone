@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-size: clamp(12px, 4vw, 16px);
-}
-
 h1,
 h2,
 h3 {

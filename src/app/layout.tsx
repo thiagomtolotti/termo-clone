@@ -1,7 +1,9 @@
+import "normalize.css";
+import "./global.css";
+
 import type { Metadata } from "next";
 import { Mitr } from "next/font/google";
-import "./global.css";
-import "normalize.css";
+
 import clsx from "clsx";
 
 const mitr = Mitr({ subsets: ["latin"], weight: ["600", "400"] });
