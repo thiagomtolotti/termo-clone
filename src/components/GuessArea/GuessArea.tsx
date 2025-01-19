@@ -8,7 +8,7 @@ export const GuessArea = () => {
   const { rowsValue, currentPosition, changeHorizontalPosition } = useInputs();
 
   return (
-    <div className={"text-6xl h-full flex-shrink grid gap-1"}>
+    <div className={"h-full flex-shrink grid gap-1"}>
       {rowsValue.map((rowValue, index) => (
         <GuessRow
           value={rowValue}
