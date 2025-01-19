@@ -3,10 +3,14 @@
 exports[`Should render correctly 1`] = `
 <div>
   <div
-    class="notification"
-    role="notification"
+    class="w-full h-14 flex-shrink-0 flex items-center justify-center"
   >
-    Teste
+    <div
+      class="bg-blue py-3 px-9 rounded-xl text-xl notification "
+      role="notification"
+    >
+      Teste
+    </div>
   </div>
 </div>
 `;

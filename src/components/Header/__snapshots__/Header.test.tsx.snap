@@ -2,10 +2,10 @@
 
 exports[`Component Header Should render correctly 1`] = `
 <div>
-  <header
-    class="header"
-  >
-    <h1>
+  <header>
+    <h1
+      class="my-2"
+    >
       Termo
     </h1>
   </header>

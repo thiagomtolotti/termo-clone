@@ -3,7 +3,7 @@
 exports[`GuessLetter component Should render correctly 1`] = `
 <div>
   <div
-    class="guess "
+    class="w-full flex items-center justify-center font-bold aspect-square rounded-md text-4xl bg-brown-100"
     role="guess"
   >
     T
@@ -14,7 +14,7 @@ exports[`GuessLetter component Should render correctly 1`] = `
 exports[`GuessLetter component Should render correctly if it's active 1`] = `
 <div>
   <div
-    class="guess active"
+    class="w-full flex items-center justify-center font-bold aspect-square rounded-md text-4xl bg-brown-100 !border-b-[10px]"
     role="guess"
   >
     T
