@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --brown-10: rgb(49, 42, 44);
   --brown-30: #4c4347;
