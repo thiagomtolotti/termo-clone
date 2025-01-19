@@ -7,10 +7,12 @@ export const Notification = () => {
   const { Notifications } = useContext(ApplicationContext);
 
   return (
-    <div className={`w-full h-14 flex-shrink-0`}>
+    <div
+      className={`w-full h-14 flex-shrink-0 flex items-center justify-center`}
+    >
       {Notifications?.currentNotification && (
         <div
-          className={styles.notification}
+          className={`bg-blue py-3 px-9 rounded-xl text-xl notification `}
           role="notification"
           key={Notifications.currentNotification.timestamp}
         >

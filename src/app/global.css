@@ -12,3 +12,13 @@ h3 {
   font-weight: 600;
   text-transform: uppercase;
 }
+
+.notification {
+  animation: notification 200ms ease-in-out;
+}
+
+@keyframes notification {
+  0% {
+    transform: scale(0.2);
+  }
+}
