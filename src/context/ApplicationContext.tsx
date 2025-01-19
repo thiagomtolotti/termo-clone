@@ -41,10 +41,6 @@ export const ApplicationProvider = ({
     });
   }, []);
 
-  useEffect(() => {
-    console.log(correctWord);
-  }, [correctWord]);
-
   return (
     <ApplicationContext.Provider
       value={{

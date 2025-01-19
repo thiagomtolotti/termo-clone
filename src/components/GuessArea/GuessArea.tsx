@@ -8,7 +8,7 @@ export const GuessArea = () => {
   const { rowsValue, currentPosition, changeHorizontalPosition } = useInputs();
 
   return (
-    <div className={styles.guessArea}>
+    <div className={"text-6xl h-full"}>
       {rowsValue.map((rowValue, index) => (
         <GuessRow
           value={rowValue}

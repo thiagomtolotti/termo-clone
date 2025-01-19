@@ -1,6 +1,5 @@
 import { useCallback, useContext } from "react";
 import { GuessLetter } from "./GuessLetter/GuessLetter";
-import styles from "./GuessRow.module.css";
 import { ApplicationContext } from "@/context/ApplicationContext";
 
 interface GuessRowProps {
@@ -44,14 +43,10 @@ export const GuessRow = ({
   );
 
   return (
-    <div
-      className={`${styles.guessRow} ${
-        activeIndex !== undefined ? styles.active : ""
-      }`}
-      role="guess-row"
-    >
+    <div className="flex gap-1 m-1" role="guess-row">
       {value.map((value, index) => (
         <GuessLetter
+          isRowActive={activeIndex !== undefined}
           active={activeIndex === index}
           isCorrectOrMisplaced={setIsCorrectOrMisplaced(index)}
           onClick={() => {

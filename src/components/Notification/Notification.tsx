@@ -7,7 +7,7 @@ export const Notification = () => {
   const { Notifications } = useContext(ApplicationContext);
 
   return (
-    <div className={styles.container}>
+    <div className={`w-full h-14 flex-shrink-0`}>
       {Notifications?.currentNotification && (
         <div
           className={styles.notification}

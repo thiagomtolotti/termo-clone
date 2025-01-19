@@ -9,9 +9,14 @@ export default function Home() {
   return (
     <ApplicationProvider>
       <Header />
+
       <Notification />
+
+      {/* <div className="w-full bg-green h-full" /> */}
+
       <GuessArea />
       <Keyboard />
+
       <Footer />
     </ApplicationProvider>
   );

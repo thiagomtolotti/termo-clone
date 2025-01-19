@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Mitr } from "next/font/google";
 import "./global.css";
 import "normalize.css";
+import clsx from "clsx";
 
 const mitr = Mitr({ subsets: ["latin"], weight: ["600", "400"] });
 
@@ -17,7 +18,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={`${mitr.className}`}>{children}</body>
+      <body
+        className={clsx(
+          `${mitr.className}`,
+          "bg-brown-600 text-gray-100 flex flex-col h-dvh items-center justify-center gap-4"
+        )}
+      >
+        {children}
+      </body>
     </html>
   );
 }

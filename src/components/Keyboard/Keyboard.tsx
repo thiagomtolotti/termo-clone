@@ -1,4 +1,3 @@
-import styles from "./Keyboard.module.css";
 import { Key } from "./Key/Key";
 
 // prettier-ignore
@@ -8,7 +7,9 @@ const LETTER_POSITIONS = [
 
 export const Keyboard = () => {
   return (
-    <div className={styles.keyboard}>
+    <div
+      className={`grid grid-rows-3 w-full px-4 h-1/4 shrink-0 gap-1 uppercase`}
+    >
       {LETTER_POSITIONS.map((letter) => (
         <Key>{letter}</Key>
       ))}
