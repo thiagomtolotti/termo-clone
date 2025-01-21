@@ -6,24 +6,23 @@ import seedrandom from "seedrandom";
 export async function isGuessAWord(guess: string) {
   const allWords = await getAllWords();
 
+  if (!allWords) throw new Error("Couldn't fetch words");
+
   return allWords.indexOf(guess) !== -1;
 }
 
 const getAllWords = async () => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL || ""}/palavras.txt`
-  );
+  const filePath = path.join(process.cwd(), "public", "palavras.txt");
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch palavras.txt");
-  }
+  const data = fs.readFileSync(filePath, "utf8");
 
-  const allWords = await res.text();
-  return allWords.replaceAll("\r", "").toUpperCase().split("\n");
+  return data.replaceAll("\r", "").toUpperCase().split("\n");
 };
 
 export async function getWordOfTheDay() {
   const allWords = await getAllWords();
+
+  if (!allWords) throw new Error("Couldn't fetch words");
 
   const currentDate = new Date();
   currentDate.setHours(0);
