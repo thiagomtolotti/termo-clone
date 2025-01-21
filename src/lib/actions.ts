@@ -12,7 +12,7 @@ export async function isGuessAWord(guess: string) {
 }
 
 const getAllWords = async () => {
-  const filePath = path.join(process.cwd(), "public", "palavras.txt");
+  const filePath = path.join(process.cwd(), "palavras.txt");
 
   const data = fs.readFileSync(filePath, "utf8");
 
