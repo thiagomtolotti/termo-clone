@@ -1,7 +1,14 @@
 "use server";
-import fs from "fs";
-import path from "path";
 import seedrandom from "seedrandom";
+
+const getAllWords = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL!}/palavras.txt`);
+
+  if (!res.ok) throw new Error("Fetching words error");
+
+  const allWords = await res.text();
+  return allWords.replaceAll("\r", "").toUpperCase().split("\n");
+};
 
 export async function isGuessAWord(guess: string) {
   const allWords = await getAllWords();
@@ -10,14 +17,6 @@ export async function isGuessAWord(guess: string) {
 
   return allWords.indexOf(guess) !== -1;
 }
-
-const getAllWords = async () => {
-  const filePath = path.join(process.cwd(), "palavras.txt");
-
-  const data = fs.readFileSync(filePath, "utf8");
-
-  return data.replaceAll("\r", "").toUpperCase().split("\n");
-};
 
 export async function getWordOfTheDay() {
   const allWords = await getAllWords();
